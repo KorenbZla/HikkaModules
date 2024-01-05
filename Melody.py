@@ -1,12 +1,12 @@
 # Name: Melody
 # Author: Felix?
 # Commands:
-# .mmoney
+# .mmoney | .mlipsiha
 # scope: hikka_only
-# meta developer: @KorenbZla
+# meta developer: @AuroraModules
 
 
-__version__ = (1, 0, 0)
+version = (1, 2, 1)
 
 
 from .. import loader, utils
@@ -36,6 +36,50 @@ class MelodyMod(loader.Module):
               "За деньги, да, за деньги, да",
               "За деньги, да",
               "Деньги— Деньги— Деньги— Деньги— Да— Да— Да— Да—",
+              "Играла песня «За деньги да»",
+              ]
+        for line in lyrics:
+          #  message = await utils.answer(message, line)
+          #
+            await asyncio.sleep(3)
+            await utils.answer(message, line)
+
+    async def mlipsihacmd(self, message):
+        """Песня «Липси ха»"""
+        lyrics = [
+              "Деньги пахнут pussy, а",
+              "Сумка Birkin, только нал",
+              "Стринги, а, стринги, а",
+              "В стрингах ношу капитал",
+              "Juicy пахнет money, ха",
+              "Сучки в Juicy мои, ха",
+              "Lipsi, ха, lipsi, ха",
+              "Lipsi give me money, ха",
+              "Mommy на dollar",
+              "Жопа на сайте, cash",
+              "Я на работе",
+              "Трясу огромной ass",
+              "Дайте мне money",
+              "Money на money, мой Ken",
+              "Пахну деньгами",
+              "Пахну деньгами",
+              "AMA bad bitch",
+              "Lipsi give me money, ха",
+              "AMA hot bitch",
+              "В стрингах ношу капитал",
+              "Bad, bad bitch",
+              "Juicy пахнет money, ха",
+              "Где мои money, bitch?",
+              "Где мои money?",
+              "AMA bad bitch",
+              "Lipsi give me money, ха",
+              "AMA hot bitch",
+              "В стрингах ношу капитал",
+              "Bad, bad bitch" 
+              "Juicy пахнет money, ха",
+              "Где мои money, bitch?",
+              "Где мои money?",
+              "Песня «LIPSI HA»"
               ]
         for line in lyrics:
           #  message = await utils.answer(message, line)
