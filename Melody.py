@@ -1,12 +1,12 @@
 # Name: Melody
-# Author: Felix?
+# Author: Felix? | dend1y
 # Commands:
-# .mmoney | .mlipsiha
+# .mmoney | .mlipsiha | .stopmusic
 # scope: hikka_only
 # meta developer: @AuroraModules
 
 
-version = (1, 2, 1)
+version = (1, 3, 0)
 
 
 from .. import loader, utils
@@ -38,11 +38,13 @@ class MelodyMod(loader.Module):
               "Деньги— Деньги— Деньги— Деньги— Да— Да— Да— Да—",
               "Играла песня «За деньги да»",
               ]
+        self.playing_music = True
         for line in lyrics:
-          #  message = await utils.answer(message, line)
-          #
             await asyncio.sleep(3)
             await utils.answer(message, line)
+            if not self.playing_music:
+              break
+        self.playing_music = False
 
     async def mlipsihacmd(self, message):
         """Песня «Липси ха»"""
@@ -81,8 +83,19 @@ class MelodyMod(loader.Module):
               "Где мои money?",
               "Песня «LIPSI HA»"
               ]
+        self.playing_music = True
         for line in lyrics:
-          #  message = await utils.answer(message, line)
-          #
             await asyncio.sleep(3)
             await utils.answer(message, line)
+            if not self.playing_music:
+                break
+        self.playing_music = False
+
+    async def stopmusiccmd(self, message):
+        """Остановить воспроизведение песни"""
+        if self.playing_music:
+            self.playing_music = False 
+            await utils.answer(message, "🎧<b>Воспроизведение музыки остановлено.</b>")
+        else:
+            await utils.answer(message, "❌<b>В данный момент музыка не воспроизводится.</b>")
+        
