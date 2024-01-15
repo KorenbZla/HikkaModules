@@ -6,7 +6,7 @@
 # meta developer: @AuroraModules
 
 
-__version__ = (1, 0, 0)
+__version__ = (1, 0, 1)
 
 
 import asyncio
@@ -118,7 +118,7 @@ class IrisFarm(loader.Module):
                 await utils.answer(message, self.strings["enable"])
                 while self.db.get("farm_status", "status"):
                     await message.client.send_message(int(group_id), text)
-                    await asyncio.sleep(18000)
+                    await asyncio.sleep(14444)
         except Exception as e:
             await utils.answer(
                 message,
