@@ -9,7 +9,7 @@
 version = (1,0,1)
 
 
-import datetim
+import datetime
 import logging
 import time
 
