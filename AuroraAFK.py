@@ -1,5 +1,15 @@
-#meta developer: @dend1yya, @AuroraModules
-import datetime
+# Name: AuroraAFK
+# Author: dend1yy
+# Commands:
+# .afk | .removestatus | .setstatus | .unafk  
+# scope: hikka_only
+# meta developer: @AuroraModules
+
+
+version = (1,0,1)
+
+
+import datetim
 import logging
 import time
 
@@ -12,11 +22,11 @@ logger = logging.getLogger(__name__)
 
 
 @loader.tds
-class AFKMod(loader.Module):
+class AuroraAFKMod(loader.Module):
     """AFK модули с функциями статусов."""
 
     strings = {
-        "name": "AFK",
+        "name": "AuroraAFK",
         "gone": "<b><emoji document_id=5427009714745517609>✅</emoji> Вы успешно встали в AFK!</b>",
         "back": "<b><emoji document_id=5465665476971471368>❌</emoji> Вы успешно вышли из AFK!</b>",
         "afk": "<b><emoji document_id=5217882379804221460>💤</emoji> Я AFK прямо сейчас (с {} назад).</b>",
