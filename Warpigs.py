@@ -1,3 +1,10 @@
+# Name: Warpigs
+# Author: dend1yya
+# Commands: 
+# .autogrow | .farmstop
+# scope: hikka_only
+# meta developer: @AuroraModules
+
 from .. import loader, utils
 import asyncio
 
