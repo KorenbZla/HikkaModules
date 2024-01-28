@@ -6,7 +6,7 @@
 # meta developer: @AuroraModules
 
 
-__version__ = (1, 0, 1)
+__version__ = (1, 0, 2)
 
 
 import asyncio
@@ -159,3 +159,11 @@ class IrisFarm(loader.Module):
             f"<b>Название:</b> <code>{chat.title}</code>\n"
             f"<b>ID</b>: <code>{chat.id}</code>"
         )
+
+    async def bagcmd(self, message):
+        """Показывает ваш мешок"""
+        bot_dialog = await message.client.get_entity("@iris_black_bot")
+        async with message.client.conversation(bot_dialog) as conv:
+            await conv.send_message("Мешок")
+            response = await conv.get_response()
+            await utils.answer(message, f"<b>{utils.escape_html(response.text)}</b>")
