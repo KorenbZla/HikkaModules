@@ -1,12 +1,12 @@
 # Name: IrisFarm
 # Author: Felix?
 # Commands:
-# .chatid | .irfarm
+# .chatid | .irfarm | .bag
 # scope: hikka_only
 # meta developer: @AuroraModules
 
 
-__version__ = (1, 0, 2)
+__version__ = (1, 1, 0)
 
 
 import asyncio
@@ -166,4 +166,4 @@ class IrisFarm(loader.Module):
         async with message.client.conversation(bot_dialog) as conv:
             await conv.send_message("Мешок")
             response = await conv.get_response()
-            await utils.answer(message, f"<b>{utils.escape_html(response.text)}</b>")
+            await utils.answer(message, f"<b>{(response.text)}</b>")
