@@ -5,7 +5,7 @@
 # scope: hikka_only
 # meta developer: @AuroraModules
 
-__version__ = (1, 0, 0)
+__version__ = (1, 1, 0)
 
 from .. import loader, utils
 import os
@@ -58,13 +58,9 @@ class RandomAvatars(loader.Module):
                 
                 response2 = await conv.get_response()
                 
-                if response2.photo:
-                    media2 = await self._client.download_media(response2.photo, "avatars")
-                    await message.client.send_file(message.to_id, [media1, media2])
-                    os.remove(media1)
-                    os.remove(media2)
-                    await message.delete()
-                else:
-                    await utils.answer(message, (self.strings["error_loading"]))
-            else:
-                await utils.answer(message, (self.strings["error_loading"]))
+            if response2.photo:
+               media2 = await self._client.download_media(response2.photo, "avatars")
+               await message.client.send_file(message.peer_id, file=[media1, media2])
+               os.remove(media1)
+               os.remove(media2)
+               await message.delete()
