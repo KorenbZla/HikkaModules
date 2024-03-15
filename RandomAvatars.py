@@ -5,7 +5,7 @@
 # scope: hikka_only
 # meta developer: @AuroraModules
 
-__version__ = (1, 1, 0)
+__version__ = (1, 2, 1)
 
 from .. import loader, utils
 import os
@@ -50,17 +50,30 @@ class RandomAvatars(loader.Module):
         await utils.answer(message, (self.strings["loading_avatars"]))
         async with self._client.conversation("@anime_4bot") as conv:
             await conv.send_message("🎎 Парные аватарки")
-            
+        
             response1 = await conv.get_response()
-            
+          
             if response1.photo:
                 media1 = await self._client.download_media(response1.photo, "avatars")
-                
+            
                 response2 = await conv.get_response()
+            
+                if response2.photo:
+                    media2 = await self._client.download_media(response2.photo, "avatars")
                 
-            if response2.photo:
-               media2 = await self._client.download_media(response2.photo, "avatars")
-               await message.client.send_file(message.peer_id, file=[media1, media2])
-               os.remove(media1)
-               os.remove(media2)
-               await message.delete()
+                    # Отправляем файлы как сообщения
+                    await message.client.send_message(
+                        message.peer_id,
+                        file=media1,
+                    )
+                    await message.client.send_message(
+                        message.peer_id,
+                        file=media2,
+                    )    
+                
+                    # Удаляем временные файлы
+                    os.remove(media1)
+                    os.remove(media2)
+                
+                    await message.delete()
+
