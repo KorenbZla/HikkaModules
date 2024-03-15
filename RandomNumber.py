@@ -5,7 +5,7 @@
 # scope: hikka_only
 # meta developer: @AuroraModules
 
-__version__ = (1, 0, 0)
+__version__ = (1, 0, 1)
 
 from telethon.tl.types import Message
 from .. import loader, utils
@@ -13,7 +13,7 @@ import random
 
 @loader.tds
 class RandomNumberMod(loader.Module):
-
+    """Генератор рандомных чисел"""
     strings = {
         "name": "RandomNumber",
         "rnumber": "<emoji document_id=5285372392086976148>🦋</emoji>  <b>The number dropped</b>",
