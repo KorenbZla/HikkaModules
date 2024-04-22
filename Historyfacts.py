@@ -21,7 +21,7 @@
 # meta developer: @AuroraModules
 
 
-__version__ = (1, 0, 2)
+__version__ = (1, 0, 3)
 
 
 from .. import loader, utils
@@ -263,22 +263,47 @@ class HistoryFactMod(loader.Module):
         "Многое из личного архива вождя было уничтожено. Известно поручение президиума ЦК Г. Маленкову, Л. Берии и Н. Хрущеву: «Поручить принять меры к тому, чтобы документы и бумаги товарища Сталина были приведены в должный порядок». И это предполагало не только опечатывание сейфов и шкафов.",
     ]
 
-    async def greatwarfactcmd(self, message):
-        """Вывести случайный исторический факт"""
+    @loader.command(
+        ru_doc="Вывод случайного исторического факта",
+        uz_doc="tasodifiy tarixiy faktlar chiqarish",
+        de_doc="Gibt eine zufällige historische Tatsache aus",
+        es_doc="Muestra un hecho histórico aleatorio",
+    )
+    async def rfact(self, message):
+        """Output a random historical fact"""
+
         greatwar_fact = random.choice(self.grand_war)
         await utils.answer(message, self.strings["fact"].format(greatwar_fact))
 
-    async def hitlerfactcmd(self, message):
-        """Вывести случайный факт о Адольфе Гитлере"""
+    @loader.command(
+        ru_doc="Вывод случайного факта об Адольфе Гитлере",
+        uz_doc="Adolf Gitler haqida tasodifiy faktlar chiqarish",
+        de_doc="Gibt eine zufällige Tatsache über Adolf Hitler aus",
+        es_doc="Muestra un hecho aleatorio sobre Adolf Hitler",
+    )
+    async def hfact(self, message):
+        """To deduce a random fact about Adolf Hitler"""
         hitler_fact = random.choice(self.adolf_fact)
         await utils.answer(message, self.strings["adolf_fact"].format(hitler_fact))
 
-    async def mussolinifactcmd(self, message):
-        """Вывести случайный факт о Бенито Муссолини"""
+    @loader.command(
+        ru_doc="Вывести случайный факт о Бенито Муссолини",
+        uz_doc="Benito Mussolini haqida tasodifiy faktlar chiqarish",
+        de_doc="Gibt eine zufällige Tatsache über Benito Mussolini aus",
+        es_doc="Muestra un hecho aleatorio sobre Benito Mussolini",
+    )
+    async def mfact(self, message):
+        """To deduce a random fact about Benito Mussolini"""
         mussolini_fact = random.choice(self.mussolini_fact)
         await utils.answer(message, self.strings["mussolini_fact"].format(mussolini_fact))
 
-    async def stalinfactcmd(self, message):
-        """Вывести случайный факт о Иосифе Сталине"""
+    @loader.command(
+        ru_doc="Вывести случайный факт о Иосифе Сталине",
+        uz_doc="Iosif Stalin haqida tasodifiy faktlar chiqarish",
+        de_doc="Gibt eine zufällige Tatsache über Joseph Stalin aus",
+        es_doc="Muestra un hecho aleatorio sobre Joseph Stalin",
+    )
+    async def sfact(self, message):
+        """To deduce a random fact about Joseph Stalin"""
         stalin_fact = random.choice(self.stalin_fact)
         await utils.answer(message, self.strings["stalin_fact"].format(stalin_fact))
