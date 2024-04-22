@@ -1,3 +1,18 @@
+# *      _                             __  __           _       _
+# *     / \  _   _ _ __ ___  _ __ __ _|  \/  | ___   __| |_   _| | ___  ___ 
+# *    / _ \| | | | '__/ _ \| '__/ _` | |\/| |/ _ \ / _` | | | | |/ _ \/ __|
+# *   / ___ \ |_| | | | (_) | | | (_| | |  | | (_) | (_| | |_| | |  __/\__ \
+# *  /_/   \_\__,_|_|  \___/|_|  \__,_|_|  |_|\___/ \__,_|\__,_|_|\___||___/
+# *
+# *                          © Copyright 2024
+# *
+# *                      https://t.me/AuroraModules
+# *
+# * 🔒 Code is licensed under CC-BY-NC-ND 4.0 unless otherwise specified.
+# * 🌐 https://creativecommons.org/licenses/by-nc-nd/4.0/
+# * ⛔️ You CANNOT edit this file without direct permission from the author.
+# * ⛔️ You can redistribute this file without any changes.
+
 # Name: Meow
 # Author: Felix? 
 # Commands:
@@ -6,7 +21,7 @@
 # meta developer: @AuroraModules
 
 
-version = (1, 0, 0)
+version = (1, 0, 1)
 
 
 from .. import loader, utils
@@ -14,11 +29,42 @@ import asyncio
 
 @loader.tds
 class MeowMod(loader.Module):
-    """Мяуканье на всех языках"""
-    strings = {"name": "Meow"}
+    """Start meowing in different languages"""
 
-    async def meowcmd(self, message):
-        """Начать мяукать на всех языках"""
+    strings = {
+        "name": "Meow",
+        "stopmeow": "<emoji document_id=5172447776205702031>🎵</emoji><b>You've stopped meowing.</b>",
+        "not_meow": "<emoji document_id=5084923566848213749>🐾</emoji><b>You are not meowing at the moment.</b>",
+    }
+
+    strings_ru = {
+        "stopmeow": "<emoji document_id=5172447776205702031>🎵</emoji><b>Ты перестал мяукать.</b>",
+        "not_meow": "<emoji document_id=5084923566848213749>🐾</emoji><b>Ты сейчас не мяукаешь.</b>",
+    }
+
+    strings_uz = {
+        "stopmeow": "<emoji document_id=5172447776205702031>🎵</emoji><b>Sen miyolishni to'xtadingiz.</b>",
+        "not_meow": "<emoji document_id=5084923566848213749>🐾</emoji><b>Siz hozir miyolmaysiz.</b>",
+    }
+
+    strings_de = {
+        "stopmeow": "<emoji document_id=5172447776205702031>🎵</emoji><b>Du hast aufgehört zu miauen.</b>",
+        "not_meow": "<emoji document_id=5084923566848213749>🐾</emoji><b>Du miaust gerade nicht.</b>",
+    }
+
+    strings_es = {
+        "stopmeow": "<emoji document_id=5172447776205702031>🎵</emoji><b>Has dejado de maullar.</b>",
+        "not_meow": "<emoji document_id=5084923566848213749>🐾</emoji><b>No estás maullando en este momento.</b>",
+    }
+
+    @loader.command(
+        ru_doc="Начать мяукать на разных языках",
+        uz_doc="Turli tillarda miyovlashni boshlang",
+        de_doc="Fangen Sie an, auf verschiedenen Sprachen zu miauen",
+        es_doc="Comience a maullar en diferentes idiomas",
+    )
+    async def meow(self, message):
+        """Start meowing in different languages"""
         lyrics = [
               "Мяу",
               "Meow",
@@ -35,6 +81,30 @@ class MeowMod(loader.Module):
               "myau",
               "Мияу",
               "Мөө",
+              "喵喵",
+              "Niau",
+              "म्याऊं",
+              "မကွာ",
+              "নিঃ",
+              "กิน",
+              "მაიო",
+              "म्याँऊँ",
+              "ມີອູດ",
+              "မြှောက်",
+              "මීයා",
+              "מיאו",
+              "մյուռ",
+              "میاو",
+              "म्याऊं",
+              "ಮ್ಯಾವ್",
+              "មែយវ៉េ",
+              "മിയാവ്",
+              "мйаоу",
+              "მიაუ",
+              "میاو",
+              "میائو",
+              "เหมียว",
+              "မြကွေး",
               ]
         self.playing_meow = True
         for line in lyrics:
@@ -44,11 +114,17 @@ class MeowMod(loader.Module):
               break
         self.playing_meow = False
 
-    async def stopmeowcmd(self, message):
-        """Остановить МЯУ"""
+    @loader.command(
+        ru_doc="Остановить мяуканье на разных языках",
+        uz_doc="Turli tillarda miyovlashni to'xtatish",
+        de_doc="Hören Sie auf, auf verschiedenen Sprachen zu miauen",
+        es_doc="Detener el maullido en diferentes idiomas",
+    )
+    async def stopmeow(self, message):
+        """Stop meowing in different languages"""
         if self.playing_meow:
             self.playing_meow = False 
-            await utils.answer(message, "🎧<b>Воспроизведение мяуканье остановлено.</b>")
+            await utils.answer(message, self.strings["stopmeow"])
         else:
-            await utils.answer(message, "❌<b>В данный момент мяуканье не воспроизводится.</b>")
+            await utils.answer(message, self.strings["not_meow"])
         
