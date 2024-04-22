@@ -1,12 +1,27 @@
+# *      _                             __  __           _       _
+# *     / \  _   _ _ __ ___  _ __ __ _|  \/  | ___   __| |_   _| | ___  ___ 
+# *    / _ \| | | | '__/ _ \| '__/ _` | |\/| |/ _ \ / _` | | | | |/ _ \/ __|
+# *   / ___ \ |_| | | | (_) | | | (_| | |  | | (_) | (_| | |_| | |  __/\__ \
+# *  /_/   \_\__,_|_|  \___/|_|  \__,_|_|  |_|\___/ \__,_|\__,_|_|\___||___/
+# *
+# *                          © Copyright 2024
+# *
+# *                      https://t.me/AuroraModules
+# *
+# * 🔒 Code is licensed under CC-BY-NC-ND 4.0 unless otherwise specified.
+# * 🌐 https://creativecommons.org/licenses/by-nc-nd/4.0/
+# * ⛔️ You CANNOT edit this file without direct permission from the author.
+# * ⛔️ You can redistribute this file without any changes.
+
 # Name: Melody
 # Author: Felix? | dend1y
 # Commands:
-# .mmoney | .mlipsiha | .stopmusic
+# .заденьгида | .LIPSIHA | .stopplay
 # scope: hikka_only
 # meta developer: @AuroraModules
 
 
-version = (1, 3, 0)
+version = (1, 2, 1)
 
 
 from .. import loader, utils
@@ -14,11 +29,43 @@ import asyncio
 
 @loader.tds
 class MelodyMod(loader.Module):
-    """Поет песни Instasamka"""
-    strings = {"name": "Melody"}
+    """Module for playing various songs in a chat"""
 
-    async def mmoneycmd(self, message):
-        """Песня «За деньги да»"""
+    strings = {
+        "name": "Melody",
+        "playing_music_off": "<emoji document_id=5172447776205702031>🎵</emoji><b>Music playback has been stopped.</b>",
+        "not_play": "<emoji document_id=4918014360267260850>⛔️</emoji><b>The music is not playing at the moment.</b>",
+    }
+
+    strings_ru = {
+        "playing_music_off": "<emoji document_id=5172447776205702031>🎵</emoji><b>Воспроизведение музыки остановлено.</b>",
+        "not_play": "<emoji document_id=4918014360267260850>⛔️</emoji><b>В данный момент музыка не воспроизводится.</b>",
+    }
+
+    strings_uz = {
+        "playing_music_off": "<emoji document_id=5172447776205702031>🎵</emoji><b>Musiqani to'xtatish.</b>",
+        "not_play": "<emoji document_id=4918014360267260850>⛔️</emoji><b>Hozircha musiqa ijro etilmayapti.</b>",
+    }
+
+    strings_de = {
+        "playing_music_off": "<emoji document_id=5172447776205702031>🎵</emoji><b>Die Musikwiedergabe wurde gestoppt.</b>",
+        "not_play": "<emoji document_id=4918014360267260850>⛔️</emoji><b>Die Musik wird derzeit nicht abgespielt.</b>",
+    }
+
+    strings_es = {
+        "playing_music_off": "<emoji document_id=5172447776205702031>🎵</emoji><b>La reproducción de música ha sido detenida.</b>",
+        "not_play": "<emoji document_id=4918014360267260850>⛔️</emoji><b>En este momento no se está reproduciendo música.</b>",
+    }
+
+
+    @loader.command(
+        ru_doc="Включить песню «За деньги да»",
+        uz_doc="Qo'shiq ijro eting «За деньги да»",
+        de_doc="Lied abspielen «За деньги да»",
+        es_doc="Reproducir canción «За деньги да»",
+    )
+    async def заденьгида(self, message):
+        """Play song «За деньги да»"""
         lyrics = [
               "Я вообще делаю что хочу",
               "Хочу импланты — звоню врачу",
@@ -46,8 +93,14 @@ class MelodyMod(loader.Module):
               break
         self.playing_music = False
 
-    async def mlipsihacmd(self, message):
-        """Песня «Липси ха»"""
+    @loader.command(
+        ru_doc="Включить песню «LIPSI HA»",
+        uz_doc="Qo'shiq ijro eting «LIPSI HA»",
+        de_doc="Lied abspielen «LIPSI HA»",
+        es_doc="Reproducir canción «LIPSI HA»",
+    )
+    async def LIPSIHA(self, message):
+        """Play song «LIPSI HA»"""
         lyrics = [
               "Деньги пахнут pussy, а",
               "Сумка Birkin, только нал",
@@ -91,11 +144,17 @@ class MelodyMod(loader.Module):
                 break
         self.playing_music = False
 
-    async def stopmusiccmd(self, message):
-        """Остановить воспроизведение песни"""
+    @loader.command(
+        ru_doc="Stop playing music",
+        uz_doc="Musiqani to'xtatish",
+        de_doc="Musik stoppen",
+        es_doc="Detener la música",
+    )
+    async def stopplay(self, message):
+        """Stop playing a song"""
         if self.playing_music:
             self.playing_music = False 
-            await utils.answer(message, "🎧<b>Воспроизведение музыки остановлено.</b>")
+            await utils.answer(message, self.strings["playing_music_off"])
         else:
-            await utils.answer(message, "❌<b>В данный момент музыка не воспроизводится.</b>")
+            await utils.answer(message, self.strings["not_play"])
         
