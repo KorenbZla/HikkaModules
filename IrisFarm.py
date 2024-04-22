@@ -1,12 +1,36 @@
+# *
+# *              $$\       $$\   $$\                                   $$\           $$\
+# *              $$ |      \__|  $$ |                                  $$ |          $$ |
+# *     $$$$$$$\ $$$$$$$\  $$\ $$$$$$\   $$$$$$\$$$$\   $$$$$$\   $$$$$$$ |$$\   $$\ $$ | $$$$$$\   $$$$$$$\
+# *    $$  _____|$$  __$$\ $$ |\_$$  _|  $$  _$$  _$$\ $$  __$$\ $$  __$$ |$$ |  $$ |$$ |$$  __$$\ $$  _____|
+# *    \$$$$$$\  $$ |  $$ |$$ |  $$ |    $$ / $$ / $$ |$$ /  $$ |$$ /  $$ |$$ |  $$ |$$ |$$$$$$$$ |\$$$$$$\
+# *     \____$$\ $$ |  $$ |$$ |  $$ |$$\ $$ | $$ | $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |$$   ____| \____$$\
+# *    $$$$$$$  |$$ |  $$ |$$ |  \$$$$  |$$ | $$ | $$ |\$$$$$$  |\$$$$$$$ |\$$$$$$  |$$ |\$$$$$$$\ $$$$$$$  |
+# *    \_______/ \__|  \__|\__|   \____/ \__| \__| \__| \______/  \_______| \______/ \__| \_______|\_______/
+# *
+# *
+# *            © Copyright 2023
+# *
+# *         https://t.me/shitmodules
+# *
+# 🔒 Code is licensed under CC-BY-NC-ND 4.0 unless otherwise specified.
+# 🌐 https://creativecommons.org/licenses/by-nc-nd/4.0/
+# You CANNOT edit this file without direct permission from the author.
+# You can redistribute this file without any changes.
+
+# This module is a fork, I did not want to offend or offend the author, but if I did it anyway, please write to me, I will be ready to apologize.
+# Channel of the author of the original module: https://t.me/shitmodules
+# Original module: https://github.com/kamolgks/Hikkamods/blob/main/FarmPA.py
+
 # Name: IrisFarm
-# Author: Felix?
+# Author: kamolgks
 # Commands:
 # .chatid | .irfarm | .bag
 # scope: hikka_only
 # meta developer: @AuroraModules
 
 
-__version__ = (1, 1, 0)
+__version__ = (1, 1, 3)
 
 
 import asyncio
@@ -21,7 +45,6 @@ logging = logging.getLogger("IrisFarm")
 
 @loader.tds
 class IrisFarm(loader.Module):
-
 
     strings = {
         "name": "IrisFarm",
