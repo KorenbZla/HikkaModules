@@ -1,4 +1,19 @@
-# Name: History Facts
+# *      _                             __  __           _       _
+# *     / \  _   _ _ __ ___  _ __ __ _|  \/  | ___   __| |_   _| | ___  ___ 
+# *    / _ \| | | | '__/ _ \| '__/ _` | |\/| |/ _ \ / _` | | | | |/ _ \/ __|
+# *   / ___ \ |_| | | | (_) | | | (_| | |  | | (_) | (_| | |_| | |  __/\__ \
+# *  /_/   \_\__,_|_|  \___/|_|  \__,_|_|  |_|\___/ \__,_|\__,_|_|\___||___/
+# *
+# *                          © Copyright 2024
+# *
+# *                      https://t.me/AuroraModules
+# *
+# * 🔒 Code is licensed under CC-BY-NC-ND 4.0 unless otherwise specified.
+# * 🌐 https://creativecommons.org/licenses/by-nc-nd/4.0/
+# * ⛔️ You CANNOT edit this file without direct permission from the author.
+# * ⛔️ You can redistribute this file without any changes.
+
+# Name: HistoryFacts
 # Author: dend1yya
 # Commands:
 # .greatwarfact | .hitlerfact | .mussolinifact | .stalinfact 
@@ -6,26 +21,52 @@
 # meta developer: @AuroraModules
 
 
+__version__ = (1, 0, 2)
+
+
 from .. import loader, utils
 import random
 
 @loader.tds
 class HistoryFactMod(loader.Module):
-    """Модуль для вывода случайных исторических фактов, о войнах, и о политиках."""
+    """Get a random historical fact"""
+
     strings = {
         "name": "HistoryFact",
-        "fact": "<b><emoji document_id=5386596911463541476>📚</emoji>Случайный интересный факт о Великой Отечественной войне:\n{}</b>",
-        "adolf_fact": "<b><emoji document_id=5386596911463541476>📚</emoji>Случайный факт об Адольфе Гитлере:\n{}</b>",
-        "mussolini_fact": "<b><emoji document_id=5386596911463541476>📚</emoji>Случайный факт о Бенито Муссолини:\n{}</b>",
-        "stalin_fact": "<b><emoji document_id=5386596911463541476>📚</emoji>Случайный факт об Иосифе Сталине:\n{}</b>",
+        "fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Random interesting fact about the Great Patriotic War:\n {}</b>",
+        "adolf_fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Random fact about Adolf Hitler:\n{}</b>",
+        "mussolini_fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Random fact about Benito Mussolini:\n{}</b>",
+        "stalin_fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Random fact about Iosif Stalin:\n{}</b>",
     }
 
-    strings_en = {
-        "fact": "<b><emoji document_id=5386596911463541476>📚</emoji>Random interesting fact about the Great Patriotic War:\n {}</b>",
-        "adolf_fact": "<b><emoji document_id=5386596911463541476>📚</emoji>Random fact about Adolf Hitler:\n{}</b>",
-        "mussolini_fact": "<b><emoji document_id=5386596911463541476>📚</emoji>Random fact about Benito Mussolini:\n{}</b>",
-        "stalin_fact": "<b><emoji document_id=5386596911463541476>📚</emoji>Random fact about Iosif Stalin:\n{}</b>",
+    strings_ru = {
+        "fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Случайный интересный факт о Великой Отечественной войне:\n{}</b>",
+        "adolf_fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Случайный факт об Адольфе Гитлере:\n{}</b>",
+        "mussolini_fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Случайный факт о Бенито Муссолини:\n{}</b>",
+        "stalin_fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Случайный факт об Иосифе Сталине:\n{}</b>",
     }
+
+    strings_uz = {
+        "fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Buyuk Vatan jangiga oid qiziq fikr:\n{}</b>",
+        "adolf_fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Adolf Gitler haqida tasodifiy fakt:\n{}</b>",
+        "mussolini_fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Benito Mussolini haqida tasodifiy fakt:\n{}</b>",
+        "stalin_fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Iosif Stalin haqida tasodifiy fakt:\n{}</b>",
+    }
+
+    strings_de = {
+        "fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Zufällige interessante Tatsache über den Großen Vaterländischen Krieg:\n{}</b>",
+        "adolf_fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Zufällige Tatsache über Adolf Hitler:\n{}</b>",
+        "mussolini_fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Zufällige Tatsache über Benito Mussolini:\n{}</b>",
+        "stalin_fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Zufällige Tatsache über Iosif Stalin:\n{}</b>",
+    }
+
+    strings_es = {
+        "fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Hecho interesante aleatorio sobre la Gran Guerra Patria:\n{}</b>",
+        "adolf_fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Hecho aleatorio sobre Adolf Hitler:\n{}</b>",
+        "mussolini_fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Hecho aleatorio sobre Benito Mussolini:\n{}</b>",
+        "stalin_fact": "<b><emoji document_id=5386596911463541476>📚</emoji> Hecho aleatorio sobre Iosif Stalin:\n{}</b>",
+    }
+
 
     grand_war = [
 "Потери после войны Вермахта составили около шести миллионов человек. По статистике, соотношение общего числа погибших и умерших людей между СССР и Германией составляет 7,3:1. Из этого делаем вывод что в СССР погибло более 43 млн людей. Эти цифры учитывают потери гражданских: СССР — 16,9 млн чел., Германия — 2 млн чел.",
