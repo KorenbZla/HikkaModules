@@ -21,7 +21,7 @@
 # meta developer: @AuroraModules
 
 
-version = (1, 2, 1)
+version = (1, 2, 2)
 
 
 from .. import loader, utils
@@ -145,13 +145,13 @@ class MelodyMod(loader.Module):
         self.playing_music = False
 
     @loader.command(
-        ru_doc="Stop playing music",
+        ru_doc="Остановить проигрывание музыки",
         uz_doc="Musiqani to'xtatish",
-        de_doc="Musik stoppen",
-        es_doc="Detener la música",
+        de_doc="Wiedergabe von Musik stoppen",
+        es_doc="Detener la reproducción de música",
     )
     async def stopplay(self, message):
-        """Stop playing a song"""
+        """Stop playing music"""
         if self.playing_music:
             self.playing_music = False 
             await utils.answer(message, self.strings["playing_music_off"])
