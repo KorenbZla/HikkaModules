@@ -1,3 +1,18 @@
+# *      _                             __  __           _       _
+# *     / \  _   _ _ __ ___  _ __ __ _|  \/  | ___   __| |_   _| | ___  ___ 
+# *    / _ \| | | | '__/ _ \| '__/ _` | |\/| |/ _ \ / _` | | | | |/ _ \/ __|
+# *   / ___ \ |_| | | | (_) | | | (_| | |  | | (_) | (_| | |_| | |  __/\__ \
+# *  /_/   \_\__,_|_|  \___/|_|  \__,_|_|  |_|\___/ \__,_|\__,_|_|\___||___/
+# *
+# *                          © Copyright 2024
+# *
+# *                      https://t.me/AuroraModules
+# *
+# * 🔒 Code is licensed under CC-BY-NC-ND 4.0 unless otherwise specified.
+# * 🌐 https://creativecommons.org/licenses/by-nc-nd/4.0/
+# * ⛔️ You CANNOT edit this file without direct permission from the author.
+# * ⛔️ You can redistribute this file without any changes.
+
 # Name: Randomizer
 # Author: dend1yya | Felix?
 # Commands:
@@ -6,18 +21,17 @@
 # meta developer: @AuroraModules
 
 
-__version__ = (1, 1, 0)
+__version__ = (1, 1, 1)
 
 
 import asyncio
 from telethon.tl.types import Message
-
 from .. import loader, utils
 import random
 
 @loader.tds
 class RandomizerMod(loader.Module):
-    """Модуль для игры с кубиком, орлом/решкой и другими играми."""
+    """Module for playing with dice, heads/tails and other games."""
 
     strings = {
         "name": "Randomizer",
@@ -148,13 +162,13 @@ class RandomizerMod(loader.Module):
             await utils.answer(message, self.strings("lose"))
 
     @loader.command(
-        ru_doc="[Орел/Решка] - Подбрасывает монетку, и выдает случайный результат",
-        uz_doc="[Quyosh/Yo'ldosh] - Chiqqan va tasodifiy natijani ko'rsatadi",
-        de_doc="[Kopf/Zahl] - Wirft eine Münze und gibt ein zufälliges Ergebnis aus",
-        es_doc="[Cara/Cruz] - Voltea una moneda y da un resultado aleatorio",
+        ru_doc="[орёл/решка] - Подбрасывает монетку, и выдает случайный результат",
+        uz_doc="[орёл/решка] - Chiqqan va tasodifiy natijani ko'rsatadi",
+        de_doc="[орёл/решка] - Wirft eine Münze und gibt ein zufälliges Ergebnis aus",
+        es_doc="[орёл/решка] - Voltea una moneda y da un resultado aleatorio",
     )
     async def monetkacmd(self, message: Message):
-        """[Heads/Tails] - Flips a coin and gives a random result"""
+        """[орёл/решка] - Flips a coin and gives a random result"""
         args = utils.get_args_raw(message)
 
         if args not in ["орёл", "решка"]:
