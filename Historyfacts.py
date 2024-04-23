@@ -16,12 +16,12 @@
 # Name: HistoryFacts
 # Author: dend1yya
 # Commands:
-# .greatwarfact | .hitlerfact | .mussolinifact | .stalinfact 
+# .rfact | .hfact | .mfact | .sfact 
 # scope: hikka_only
 # meta developer: @AuroraModules
 
 
-__version__ = (1, 0, 3)
+__version__ = (1, 0, 4)
 
 
 from .. import loader, utils
