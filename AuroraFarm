@@ -13,7 +13,7 @@
 # * ⛔️ You CANNOT edit this file without direct permission from the author.
 # * ⛔️ You can redistribute this file without any changes.
 #Author: @dend1yya 
-#meta developer: @AuroraModules
+#meta developer: @AuroraModules 
 
 import asyncio
 import logging
