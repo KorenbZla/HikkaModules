@@ -21,7 +21,7 @@
 # meta developer: @AuroraModules & @nercymods
 
 
-__version__ = (1, 0, 1)
+__version__ = (1, 0, 2)
 
 
 from aiogram.types import Message as AiogramMessage
@@ -284,7 +284,7 @@ class AuroraFeedBackMod(loader.Module):
             self._ban_list.append(user_id)
             self.db.set("AuroraFeedBackMod", "ban_list", self._ban_list)
             reply_markup = InlineKeyboardMarkup()
-            reply_markup.add(InlineKeyboardButton(text="🔐 Ban", callback_data=f"unban_{user_id}"))
+            reply_markup.add(InlineKeyboardButton(text="🔓 Unban", callback_data=f"unban_{user_id}"))
             await self.inline.bot.send_message(self.tg_id, f'{self.strings["successfully_ban"]} ({user_id})', reply_markup=reply_markup)
             return
         if call.data.startswith('unban_'):
@@ -292,7 +292,7 @@ class AuroraFeedBackMod(loader.Module):
             self._ban_list.remove(user_id)
             self.db.set("AuroraFeedBackMod", "ban_list", self._ban_list)
             reply_markup = InlineKeyboardMarkup()
-            reply_markup.add(InlineKeyboardButton(text="🔓 Unban", callback_data=f"ban_{user_id}"))
+            reply_markup.add(InlineKeyboardButton(text="🔐 Ban", callback_data=f"ban_{user_id}"))
             await self.inline.bot.send_message(self.tg_id, f'{self.strings["successfully_unban"]} ({user_id})', reply_markup=reply_markup)
             return
         if call.data.startswith("reply"):
