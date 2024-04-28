@@ -22,7 +22,7 @@ logging = logging.getLogger("AuroraFarm")
 
 @loader.tds
 class AuroraFarmMod(loader.Module):
-    """Автоматизирует вашу работу в Iris Chat Manager"""
+    """Автоматизирует вашу работу в Aurora Kynimeister"""
 
     strings = {
         "name": "AuroraFarm",
