@@ -21,7 +21,7 @@
 # meta developer: @AuroraModules & @nercymods
 
 
-__version__ = (1, 0, 0)
+__version__ = (1, 0, 1)
 
 
 from aiogram.types import Message as AiogramMessage
@@ -154,6 +154,9 @@ class AuroraFeedBackMod(loader.Module):
                 validator=loader.validators.Link(),
             ),
         )
+
+    async def on_dlmod(self, client, db):
+        self.db.set("AuroraFeedBackMod", "ban_list", [])
 
     async def client_ready(self, client, db):
         self.forwarding_enabled = {}
