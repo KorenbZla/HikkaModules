@@ -51,46 +51,29 @@ class IrisFarmMod(loader.Module):
         self.db = db
         self.client = client
 
-    async def afarmcmd(self, message):
+    async def farmoncmd(self, message):
         """Включает фарм в Iris Chat Manager"""
-        try:
-            status = self.db.get("farm_status", "status")
-            msg = await utils.answer(message, self.strings["loading"])
-            text = "Фармить"
-            group_id = self.config.get("group_id", None)
+        await utils.answer(message, self.strings["loading"])
+        group_id = self.config.get("group_id", None)
+        self.db.set("IrisFarm", "status", True)
 
-            if group_id is None: 
-                bot_dialog = await message.client.get_entity("@iris_black_bot")
-                async with message.client.conversation(bot_dialog) as conv:
-                    while not status:  
-                        self.db.set("farm_status", "status", True)
-                        await utils.answer(message, self.strings["enable"])
-                        while self.db.get("farm_status", "status"):
-                            await conv.send_message(text)
-                            await asyncio.sleep(14444)
-                if status:
-                    self.db.set("farm_status", "status", False)
-                    await utils.answer(message, self.strings["disable"])                            
-                return
-
-            if status:
-                self.db.set("farm_status", "status", False)
-                await utils.answer(message, self.strings["disable"])
-            else:
-                self.db.set("farm_status", "status", True)
+        if group_id is None or group_id == 0:
+            bot_dialog = await message.client.get_entity("@iris_black_bot")
+            async with message.client.conversation(bot_dialog) as conv:
                 await utils.answer(message, self.strings["enable"])
-                while self.db.get("farm_status", "status"):
-                    await message.client.send_message(int(group_id), text)
+                while self.db.get("IrisFarm", "status"):
+                    await conv.send_message("Фармить")
                     await asyncio.sleep(14444)
+        else:
+            await utils.answer(message, self.strings["enable"])
+            while self.db.get("IrisFarm", "status"):
+                await message.client.send_message(int(group_id), "Фармить")
+                await asyncio.sleep(14444)
 
-        except Exception as e:
-            await utils.answer(
-                message,
-                f"Something went wrong..\nError: {e}\n\nIf the error persists,"
-                " please write about the error to me in PM: https://t.me/KorenbZla"
-            )
-            logging.info("An error has occurred")
-
+    async def farmoffcmd(self, message):
+        """Выключает фарм в Iris Chat Manager"""
+        self.db.set("IrisFarm", "status", False)
+        await utils.answer(message, self.strings["disable"])
 
     async def chatidcmd(self, message):
         """Команда .chatid показывает ID чата."""
