@@ -117,7 +117,7 @@ class MyDebtorsMod(loader.Module):
             await utils.answer(message, self.strings("no_name"))
             return
 
-        amount = float(amount)
+        amount = int(amount)
 
         if debtor_name not in self._debtors:
             self._debtors[debtor_name] = 0
@@ -230,7 +230,7 @@ class MyDebtorsMod(loader.Module):
             await utils.answer(message, self.strings("no_name"))
             return
 
-        new_amount = float(new_amount)
+        new_amount = int(new_amount)
 
         if debtor_name in self._debtors:
             self._debtors[debtor_name] = new_amount
