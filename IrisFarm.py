@@ -12,7 +12,16 @@
 # * 🌐 https://creativecommons.org/licenses/by-nc-nd/4.0/
 # * ⛔️ You CANNOT edit this file without direct permission from the author.
 # * ⛔️ You can redistribute this file without any changes.
-#meta developer: @AuroraModules
+
+# Name: IrisFarm
+# Author: dend1yya
+# Commands:
+# .farmon | .farmoff | .bag
+# scope: hikka_only
+# meta developer: @AuroraModules
+
+__version__ = (1, 0, 0)
+
 
 import asyncio
 import logging
