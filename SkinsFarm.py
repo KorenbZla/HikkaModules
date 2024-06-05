@@ -8,10 +8,10 @@
 # *
 # *                      https://t.me/AuroraModules
 # *
-# * 🔒 Code is licensed under CC-BY-NC-ND 4.0 unless otherwise specified.
-# * 🌐 https://creativecommons.org/licenses/by-nc-nd/4.0/
+# * 🔒 Code is licensed under GNU AGPLv3
+# * 🌐 https://www.gnu.org/licenses/agpl-3.0.html
 # * ⛔️ You CANNOT edit this file without direct permission from the author.
-# * ⛔️ You can redistribute this file without any changes.
+# * ⛔️ You CANNOT distribute this file if you have modified it without the direct permission of the author.
 
 # Name: SkinsFarm
 # Author: Felix?
