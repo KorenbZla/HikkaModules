@@ -20,10 +20,10 @@
 # scope: hikka_only
 # meta developer: @AuroraModules
 
-__version__ = (1, 0, 0)
+__version__ = (1, 1, 0)
 
 from .. import loader, utils
-from telethon.tl.types import Message
+from telethon.tl.types import Message # type: ignore
 
 @loader.tds
 class SendMod(loader.Module):
@@ -143,3 +143,17 @@ class SendMod(loader.Module):
                 await message.edit(self.strings["error_send_2"])
         except:
             await message.edit(self.strings["error_send_3"])
+
+    @loader.command(
+        ru_doc="[text] - Отправить сообщение через инлайн-форму",
+        uz_doc="[text] - Inline shakl orqali xabar yuboradi",
+        de_doc="[text] - Sendet eine Nachricht über das Inline-Formular",
+        es_doc="[text] - Envía un mensaje a través del formulario en línea",
+    )
+    async def ibsend(self, message):
+        """[text] - Send a message via the inline form"""
+        text = utils.get_args_raw(message)
+        await self.inline.form(
+            message=message,
+            text=str(text),
+        )
