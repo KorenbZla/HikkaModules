@@ -18,3 +18,4 @@ Send
 Warpigs
 Wikipedia
 AuroraDonate
+AutoFarmUniversal
