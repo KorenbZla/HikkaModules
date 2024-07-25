@@ -13,7 +13,7 @@ MyDebtors
 RandomAvatars
 RandomNumber
 Randomizer
-Report
+Reports
 Send
 Warpigs
 Wikipedia
