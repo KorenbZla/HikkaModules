@@ -16,18 +16,19 @@
 # Name: Randomizer
 # Author: dend1yya | Felix?
 # Commands:
-# .cube | .monetka | .rnumber
+# .cube | .monetka | .rnum
 # scope: hikka_only
 # meta developer: @AuroraModules
 
+# meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
+# meta banner: https://te.legra.ph/file/201288f407537011ce0ed.jpg
 
 __version__ = (1, 1, 1)
 
-
-import asyncio
-from telethon.tl.types import Message
-from .. import loader, utils
 import random
+import asyncio
+from telethon.tl.types import Message # type: ignore
+from .. import loader, utils
 
 @loader.tds
 class RandomizerMod(loader.Module):
@@ -167,7 +168,7 @@ class RandomizerMod(loader.Module):
         de_doc="[орёл/решка] - Wirft eine Münze und gibt ein zufälliges Ergebnis aus",
         es_doc="[орёл/решка] - Voltea una moneda y da un resultado aleatorio",
     )
-    async def monetkacmd(self, message: Message):
+    async def monetka(self, message: Message):
         """[орёл/решка] - Flips a coin and gives a random result"""
         args = utils.get_args_raw(message)
 
@@ -190,13 +191,13 @@ class RandomizerMod(loader.Module):
             await utils.answer(message, self.strings("lose"))
 
     @loader.command(
-        ru_doc="Случайное число",
-        uz_doc="Tasodifiy raqam",
-        de_doc="Zufallszahl",
-        es_doc="Número aleatorio", 
+        ru_doc="[number] - Случайное число",
+        uz_doc="[number] - Tasodifiy raqam",
+        de_doc="[number] - Zufallszahl",
+        es_doc="[number] - Número aleatorio", 
     )
     async def rnum(self, message: Message):
-        """Random number"""
+        """[number] - Random number"""
         args = utils.get_args_raw(message)
         min_number = min(self.config["Number_Min"], self.config["Number_Max"])
         max_number = max(self.config["Number_Min"], self.config["Number_Max"])
