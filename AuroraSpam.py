@@ -20,11 +20,14 @@
 # scope: hikka_only
 # meta developer: @AuroraModules
 
+# meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
+# meta banner: https://te.legra.ph/file/e5b219dd459e4cf8b0b11.jpg
+
 __version__ = (1, 1, 6)
 
 import asyncio
 from .. import loader, utils
-from telethon.tl.types import Message
+from telethon.tl.types import Message # type: ignore
 
 @loader.tds
 class AuroraSpamMod(loader.Module):
@@ -103,7 +106,7 @@ class AuroraSpamMod(loader.Module):
         de_doc="Starten Sie den Versand von Nachrichten.",
         es_doc="Empezar a enviar mensajes.",
     )
-    async def aspamcmd(self, message: Message):
+    async def aspam(self, message: Message):
         """Start sending messages."""
         ccid = self.config["group_id"]
         text = self.config["custom_text"]
