@@ -20,11 +20,13 @@
 # scope: hikka_only
 # meta developer: @AuroraModules
 
+# meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
+# meta banner: https://te.legra.ph/file/ee1bb476a643bb85b5723.jpg
+
 version = (1, 0, 0)
 
+import wikipedia # type: ignore
 from .. import loader, utils
-import wikipedia
-
 
 class WikipediaMod(loader.Module):
     """Search for information on Wikipedia"""
@@ -76,7 +78,7 @@ class WikipediaMod(loader.Module):
         de_doc="[prompt] - Material in der Wikipedia auf Russisch suchen.",
         es_doc="[prompt] - Buscar material en Wikipedia en ruso.",
     )
-    async def wikirucmd(self, message):
+    async def wikiru(self, message):
         """[prompt] - Search for material in Wikipedia in Russian."""
         args = utils.get_args_raw(message)
         if not args:
@@ -100,7 +102,7 @@ class WikipediaMod(loader.Module):
         de_doc="[prompt] - Material in der Wikipedia auf Englisch suchen.",
         es_doc="[prompt] - Buscar material en Wikipedia en inglés.",
     )
-    async def wikiencmd(self, message):
+    async def wikien(self, message):
         """[prompt] - Search for material in Wikipedia in English."""
         args = utils.get_args_raw(message)
         if not args:
