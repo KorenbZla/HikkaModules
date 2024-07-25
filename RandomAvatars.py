@@ -20,10 +20,17 @@
 # scope: hikka_only
 # meta developer: @AuroraModules
 
-__version__ = (1, 2, 1)
+# meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
+# meta banner: https://te.legra.ph/file/64b1e88536b3ba59c94da.jpg
 
-from .. import loader, utils
+__version__ = (1, 3, 0)
+
 import os
+import logging
+from .. import loader, utils
+from telethon.tl.functions.channels import JoinChannelRequest # type: ignore
+
+logger = logging.getLogger("RandomAvatars")
 
 @loader.tds
 class RandomAvatars(loader.Module):
@@ -60,10 +67,21 @@ class RandomAvatars(loader.Module):
         de_doc="Suchen Sie nach zufällig gepaarten Avataren",
         es_doc="Buscar avatares emparejados aleatoriamente",
     )
-    async def rpavatarscmd(self, message):
+    async def rpavatars(self, message):
         """random paired avatars"""
-        await utils.answer(message, (self.strings["loading_avatars"]))
+
+        try:
+            channel_a = "https://t.me/anime4_avatarki"
+            channel_b = "https://t.me/anime4_arts"
+            await self.client(JoinChannelRequest(channel_a))
+            await self.client(JoinChannelRequest(channel_b))
+        except Exception:
+            logger.error("Error when subscribing to channels.")
+
+        await utils.answer(message, self.strings("loading_avatars"))
+        
         async with self._client.conversation("@anime_4bot") as conv:
+            
             await conv.send_message("🎎 Парные аватарки")
         
             response1 = await conv.get_response()
@@ -76,7 +94,6 @@ class RandomAvatars(loader.Module):
                 if response2.photo:
                     media2 = await self._client.download_media(response2.photo, "avatars")
                 
-                    # Отправляем файлы как сообщения
                     await message.client.send_message(
                         message.peer_id,
                         file=media1,
@@ -85,10 +102,8 @@ class RandomAvatars(loader.Module):
                         message.peer_id,
                         file=media2,
                     )    
-                
-                    # Удаляем временные файлы
+
                     os.remove(media1)
                     os.remove(media2)
                 
                     await message.delete()
-
