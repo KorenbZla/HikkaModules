@@ -14,7 +14,7 @@
 # * ⛔️ You CANNOT distribute this file if you have modified it without the direct permission of the author.
 
 # Name: AuroraAFK
-# Author: dend1yy |
+# Author: dend1yy | Felix?
 # Commands:
 # .afk | .removestatus | .setstatus | .unafk
 # scope: hikka_only
