@@ -16,11 +16,14 @@
 # Name: Send
 # Author: Felix?
 # Commands:
-# .send | .sendclosedtopic | .sendpm
+# .send | .sendclosedtopic | .sendpm | .ibsend
 # scope: hikka_only
 # meta developer: @AuroraModules
 
-__version__ = (1, 1, 0)
+# meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
+# meta banner: https://te.legra.ph/file/55fa6eebae860a359ac27.jpg
+
+__version__ = (1, 2, 0)
 
 from .. import loader, utils
 from telethon.tl.types import Message # type: ignore
