@@ -20,6 +20,9 @@
 # scope: hikka_only
 # meta developer: @AuroraModules
 
+# meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
+# meta banner: https://te.legra.ph/file/926b74bc3235fb03433ea.jpg
+
 version = (1, 0, 0)
 
 from .. import loader, utils
@@ -28,6 +31,7 @@ from datetime import timedelta
 @loader.tds
 class BanWordMod(loader.Module):
     """Модуль для управления запрещёнными словами в чате."""
+    
     strings = {
         "name": "BanWord",
         "word_added": "<b><emoji document_id=5873153278023307367>📄</emoji> Banword successfully added:</b> <code>{}</code>",
@@ -81,11 +85,29 @@ class BanWordMod(loader.Module):
         "no_word": "<b><emoji document_id=5443038326535759644>💬</emoji> Das Wort ist nicht angegeben.</b>"
     }
 
+    strings_es = {
+        "word_added": "<b><emoji document_id=5873153278023307367>📄</emoji> Palabra prohibida añadida con éxito:</b> <code>{}</code>",
+        "kick": "<b><emoji document_id=5442879640379076105>👤</emoji> | El usuario @{message.sender.username} utilizó una palabra prohibida y fue expulsado. <emoji document_id=5253780051471642059>🛡</emoji>\n<i><emoji document_id=5231165412275668380>🥰</emoji> | Protegido por AuroraModules</i>",
+        "mute": "<b><emoji document_id=5442879640379076105>👤</emoji> | El usuario @{message.sender.username} utilizó una palabra prohibida y fue silenciado por 1 hora. <emoji document_id=5253780051471642059>🛡</emoji></b>\n<i><emoji document_id=5231165412275668380>🥰</emoji> | Protegido por AuroraModules</i>",
+        "word_removed": "<b><emoji document_id=5445267414562389170>🗑</emoji> Palabra prohibida eliminada:</b> <code>{}</code>",
+        "none_bw": "<b><emoji document_id=5287613115180006030>🤬</emoji> La lista de palabras prohibidas está vacía.</b>",
+        "bword_enabled": "<b><emoji document_id=5398001711786762757>✅</emoji> Las palabras prohibidas están activadas en este chat</b>",
+        "bword_disabled": "<b><emoji document_id=5388785832956016892>❌</emoji> Las palabras prohibidas están desactivadas.</b>",
+        "action_set": "<b><emoji document_id=5255999175174137421>🛡</emoji> Acción configurada:</b> <code>{}</code>",
+        "no_action": "<b><emoji document_id=5980953710157632545>❌</emoji> Acción no especificada. Usa: kick, mute, delete</b>",
+        "no_word": "<b><emoji document_id=5443038326535759644>💬</emoji> Palabra no especificada</b>"
+    }
+
     def __init__(self):
-        self.config = loader.ModuleConfig("BAN_ACTION", "delete", lambda: "Действие при нахождении запрещённого слова: kick, mute, delete")
+        self.config = loader.ModuleConfig(
+            loader.ConfigValue(
+                "BAN_ACTION",
+                "delete",
+                lambda: "Action when finding a forbidden word: kick, mute, delete",
+            ),
+        )
 
     async def watcher(self, message):
-        """Следит за сообщениями и применяет действие при нахождении запрещённого слова."""
         chat_id = utils.get_chat_id(message)
         enabled_chats = self.db.get("BanWord", "enabled_chats", [])
         if str(chat_id) not in enabled_chats:
@@ -99,7 +121,7 @@ class BanWordMod(loader.Module):
             elif action == "kick":
                 entity = await message.client.get_input_entity(chat_id)
                 await message.client.kick_participant(entity, message.sender_id)
-                await message.respond(f"<b><emoji document_id=5442879640379076105>👤</emoji> | User @{message.sender.username} used a banned word and was kicked. <emoji document_id=5253780051471642059>🛡</emoji></b>\n<i><emoji document_id=5231165412275668380>🥰</emoji> | Protected by AuroraModules</i>")
+                await message.respond(f"<b><emoji document_id=5442879640379076105>👤</emoji> | User @{message.sender.username} used a banned word and was kicked. <emoji document_id=5253780051471642059>🛡</emoji></b>\n<i><emoji document_id=5231165412275668380>🥰</emoji></i>\n<b><i>Protected by @AuroraModules</b></i>")
             elif action == "mute":
                 mute_duration = timedelta(hours=1)
                 until_date = message.date + mute_duration
@@ -110,15 +132,15 @@ class BanWordMod(loader.Module):
                     until_date=until_date, 
                     send_messages=False
                 )
-                await message.respond(f"<b><emoji document_id=5442879640379076105>👤</emoji> | User @{message.sender.username} used a banned word and was muted for 1 hour. <emoji document_id=5253780051471642059>🛡</emoji></b>\n<i><emoji document_id=5231165412275668380>🥰</emoji> | Protected by AuroraModules</i>")
+                await message.respond(f"<b><emoji document_id=5442879640379076105>👤</emoji> | User @{message.sender.username} used a banned word and was muted for 1 hour. <emoji document_id=5253780051471642059>🛡</emoji></b>\n<i><emoji document_id=5231165412275668380>🥰</emoji></i>\n<b><i>Protected by @AuroraModules</b></i>")
 
     @loader.command(
         ru_doc = "Добавляет запрещённое слово.",
         uz_doc = "Taqiqlangan so'zni qo'shadi.",
         de_doc = "Fügt ein verbotenes Wort hinzu.",
-
+        es_doc = "Añade una palabra prohibida.",
     )
-    async def bwaddcmd(self, message):
+    async def bwadd(self, message):
         """Adds a banned word."""
         args = utils.get_args_raw(message)
         if not args:
@@ -131,11 +153,12 @@ class BanWordMod(loader.Module):
             await utils.answer(message, self.strings["word_added"].format(args))
     
     @loader.command(
-        ru_doc = "Удаляет запрещенное слово.",
+        ru_doc = "Удаляет запрещённое слово.",
         uz_doc = "Taqiqlangan so'zni olib tashlaydi.",
         de_doc = "Entfernt ein verbotenes Wort.",
+        es_doc = "Elimina una palabra prohibida.",
     )
-    async def bwdelcmd(self, message):
+    async def bwdel(self, message):
         """Removes a banned word."""
         args = utils.get_args_raw(message)
         if not args:
@@ -151,8 +174,9 @@ class BanWordMod(loader.Module):
         ru_doc = "Включает банворды в чате.",
         uz_doc = "Chatda banwordsni yoqadi.",
         de_doc = "Aktiviert Banwords im Chat.",
+        es_doc = "Activa las palabras prohibidas en el chat.",
     )
-    async def bwoncmd(self, message):
+    async def bwon(self, message):
         """Enables banwords in chat."""
         chat_id = str(utils.get_chat_id(message))
         enabled_chats = self.db.get("BanWord", "enabled_chats", [])
@@ -164,9 +188,10 @@ class BanWordMod(loader.Module):
     @loader.command(
         ru_doc = "Отключает банворды в чате.",
         uz_doc = "Chatdagi bandwordlarni o'chirib qo'yadi.",
-        de_doc = "Deaktiviert Ban Words in Chat.",
+        de_doc = "Deaktiviert Ban Words im Chat.",
+        es_doc = "Desactiva las palabras prohibidas en el chat.",
     )
-    async def bwoffcmd(self, message):
+    async def bwoff(self, message):
         """Disable banword in chat."""
         chat_id = str(utils.get_chat_id(message))
         enabled_chats = self.db.get("BanWord", "enabled_chats", [])
@@ -178,9 +203,10 @@ class BanWordMod(loader.Module):
     @loader.command(
         ru_doc = "Устанавливает действие при нахождении запрещённого слова (kick, mute, delete).",
         uz_doc = "Taqiqlangan so'z aniqlanganda harakatni o'rnatadi (kick, mute, delete).",
-        de_doc = "Legt die Aktion fest, wenn ein verbotenes Wort gefunden wird (kick, mute, delete)."
+        de_doc = "Legt die Aktion fest, wenn ein verbotenes Wort gefunden wird (kick, mute, delete).",
+        es_doc = "Establece la acción cuando se encuentra una palabra prohibida (expulsar, silenciar, eliminar).",
     )
-    async def bwordcmd(self, message):
+    async def bword(self, message):
         """Sets the action when a prohibited word is found (kick, mute, delete)."""
         args = utils.get_args_raw(message)
         if args not in ["kick", "mute", "delete"]:
@@ -193,8 +219,9 @@ class BanWordMod(loader.Module):
         ru_doc = "Выводит список запрещённых слов.",
         uz_doc = "Taqiqlangan so'zlar ro'yxatini ko'rsatadi.",
         de_doc = "Zeigt eine Liste verbotener Wörter an.",
+        es_doc = "Muestra una lista de palabras prohibidas.",
     )
-    async def bwlistcmd(self, message):
+    async def bwlist(self, message):
         """Displays a list of prohibited words."""
         banned_words = self.db.get("BanWord", "banned_words", [])
         if not banned_words:
