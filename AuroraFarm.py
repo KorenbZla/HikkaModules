@@ -14,7 +14,7 @@
 # * ⛔️ You CANNOT distribute this file if you have modified it without the direct permission of the author.
 
 # Name: AuroraFarm
-# Author: Felix? || dend1yya
+# Author: Felix?
 # Commands:
 # .afarm
 # scope: hikka_only
