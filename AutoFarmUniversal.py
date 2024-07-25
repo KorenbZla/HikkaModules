@@ -20,6 +20,9 @@
 # scope: hikka_only
 # meta developer: @AuroraModules
 
+# meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
+# meta banner: https://te.legra.ph/file/77e64e3d33263a669125f.jpg
+
 __version__ = (1, 0, 0)
 
 import asyncio
@@ -149,7 +152,7 @@ class AutoFarmUniversalMod(loader.Module):
         de_doc="{on/off} - Auto-Farm ein- oder ausschalten",
         es_doc="{on/off} - activar o desactivar la auto-granja",
     )
-    async def ufarmcmd(self, message):
+    async def ufarm(self, message):
         """{on/off} - turn auto farm on or off"""            
         args = utils.get_args_raw(message).lower()
         
