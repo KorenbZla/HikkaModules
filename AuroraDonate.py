@@ -20,6 +20,9 @@
 # scope: hikka_only
 # meta developer: @AuroraModules
 
+# meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
+# meta banner: https://te.legra.ph/file/d3f0f14e90ce2f82d8f1f.jpg
+
 __version__ = (1, 0, 0)
 
 from hikkatl.types import Message # type: ignore
