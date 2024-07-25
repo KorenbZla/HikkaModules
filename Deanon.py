@@ -20,14 +20,13 @@
 # scope: hikka_only
 # meta developer: @AuroraModules
 
+# meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
+# meta banner: https://te.legra.ph/file/9bf5a040f3fcab0caf689.jpg
+
 __version__ = (1, 0, 0)
 
-from telethon.tl.types import Message
+from telethon.tl.types import Message # type: ignore
 from .. import loader
-import logging
-
-logger = logging.getLogger(__name__)
-
 
 @loader.tds
 class Deanon(loader.Module):
@@ -37,6 +36,7 @@ class Deanon(loader.Module):
         "try_d1": "<b><i>You can't do that. An Internet hero.</i></b>",
         "try_d2": "<b><i>Once again, I will delete the account for such jokes.</i></b>",
     }
+
     strings_ru = {
         "try_d1": "<b><i>Нельзя таким заниматься. Интернет - герой.</i></b>",
         "try_d2": "<b><i>Еще раз и удалю аккаунт за такие приколы.</i></b>",
