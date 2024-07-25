@@ -20,9 +20,10 @@
 # scope: hikka_only
 # meta developer: @AuroraModules
 
+# meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
+# meta banner: https://te.legra.ph/file/787faf75b8a094553336f.jpg
 
 version = (1, 2, 2)
-
 
 from .. import loader, utils
 import asyncio
