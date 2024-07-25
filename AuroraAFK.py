@@ -14,21 +14,21 @@
 # * ⛔️ You CANNOT distribute this file if you have modified it without the direct permission of the author.
 
 # Name: AuroraAFK
-# Author: dend1yy
+# Author: dend1yy |
 # Commands:
 # .afk | .removestatus | .setstatus | .unafk
 # scope: hikka_only
 # meta developer: @AuroraModules
 
+# meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
+# meta banner: https://te.legra.ph/file/f35de08579b3bd2235bc4.jpg
 
 __version__ = (1, 0, 3)
-
 
 import datetime
 import logging
 import time
-from telethon import functions 
-from telethon import types 
+from telethon import types, functions  # type: ignore
 from .. import loader, utils
 
 logger = logging.getLogger(__name__)
@@ -135,7 +135,7 @@ class AuroraAFKMod(loader.Module):
         de_doc="Setzt den AFK-Status",
         es_doc="Establece el estado AFK"
     )
-    async def setstatuscmd(self, message):
+    async def setstatus(self, message):
         """Set the AFK status"""
         user = await utils.get_user(message)
         if user:
@@ -160,7 +160,7 @@ class AuroraAFKMod(loader.Module):
         de_doc="Löscht den AFK-Status",
         es_doc="Eliminar el estado AFK"
     )
-    async def removestatuscmd(self, message):
+    async def removestatus(self, message):
         """Удалить статус AFK."""
         user = await utils.get_user(message)
         if user:
