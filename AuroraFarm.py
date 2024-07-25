@@ -14,111 +14,112 @@
 # * ⛔️ You CANNOT distribute this file if you have modified it without the direct permission of the author.
 
 # Name: AuroraFarm
-# Author: dend1yya 
+# Author: Felix? || dend1yya
 # Commands:
-# .afarm | .chatid
+# .afarm
 # scope: hikka_only
 # meta developer: @AuroraModules
 
-__version__ = (1, 0, 0)
+# meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
+# meta banner: https://te.legra.ph/file/903b12da5af31a1947ca8.jpg
+
+__version__ = (3, 0, 0)
 
 import asyncio
-import logging
-from .. import loader,utils
-
-logging = logging.getLogger("AuroraFarm")
+from .. import loader, utils
 
 @loader.tds
 class AuroraFarmMod(loader.Module):
-    """Автоматизирует вашу работу в Aurora Kynimeister"""
+    """Automatic progress farm at @kynimeister_bot"""
 
     strings = {
         "name": "AuroraFarm",
-        "loading": "<b><emoji document_id=5253952855185829086>⚙️</emoji> Loading..</b>",
-        "group_id": "Group ID",
-        "enable": "<b><emoji document_id=5226828654947874694>✅</emoji> Aurora Farm succefully started.</b>",
-        "disable": "<b><emoji document_id=5404553572727660202>❌</emoji> Aurora Farm succefully disabled.</b>"
+        "status": "<emoji document_id=6028435952299413210>ℹ️</emoji> Module operation status",
+        "s_1": "Active.",
+        "s_0": "Inactive.",
+        "on": "Activated.",
+        "off": "Deactivated.",
+        "n_args": "<emoji document_id=5285372392086976148>🚫</emoji> Specify the arguments",
     }
-
+    
     strings_ru = {
-        "loading": "<b><emoji document_id=5253952855185829086>⚙️</emoji> Загрузка..</b>",
-        "group_id": "Айди группы",
-        "enable": "<b><emoji document_id=5226828654947874694>✅</emoji> Aurora Farm успешно запущен.</b>",
-        "disable": "<b><emoji document_id=5404553572727660202>❌</emoji> Aurora Farm успешно выключен.</b>"
+        "status": "<emoji document_id=6028435952299413210>ℹ️</emoji> Статус работы модуля",
+        "s_1": "Активно.",
+        "s_0": "Неактивно.",
+        "on": "Активировано.",
+        "off": "Деактивировано.",
+        "n_args": "<emoji document_id=5285372392086976148>🚫</emoji> Укажите аргументы",
     }
 
-    def __init__(self):
-        self.config = loader.ModuleConfig(
-            loader.ConfigValue(
-                "group_id",
-                None,
-                lambda: self.strings["group_id"]
-            ),
-        )
+    strings_uz = {
+        "status": "<emoji document_id=6028435952299413210>ℹ️</emoji> Modul ishlash holati",
+        "s_1": "Faol.",
+        "s_0": "Faol emas.",
+        "on": "Faollashtirildi.",
+        "off": "O'chirildi.",
+        "n_args": "<emoji document_id=5285372392086976148>🚫</emoji> Argumentlarni kiriting",
+    }
+
+    strings_de = {
+        "status": "<emoji document_id=6028435952299413210>ℹ️</emoji> Modulbetriebsstatus",
+        "s_1": "Aktiv.",
+        "s_0": "Inaktiv.",
+        "on": "Aktiviert.",
+        "off": "Deaktiviert.",
+        "n_args": "<emoji document_id=5285372392086976148>🚫</emoji> Geben Sie die Argumente an",
+    }
+
+    strings_es = {
+        "status": "<emoji document_id=6028435952299413210>ℹ️</emoji> Estado de operación del módulo",
+        "s_1": "Activo.",
+        "s_0": "Inactivo.",
+        "on": "Activado.",
+        "off": "Desactivado.",
+        "n_args": "<emoji document_id=5285372392086976148>🚫</emoji> Especifica los argumentos",
+
+    }
+
     async def client_ready(self, client, db):
         self.db = db
         self.client = client
+        self.db.get("AuroraFarm", "status", False)
 
-    async def afarmcmd(self, message):
-        """Включает фарм в AuroraKynimeister"""
-        try:
-            status = self.db.get("farm_status", "status")
-            msg = await utils.answer(message, self.strings["loading"])
+    @loader.command(
+        ru_doc="{on/off} - включить или выключить автоматическую фарминг",
+        uz_doc="{on/off} - avtomatik fermani yoqish yoki o'chirish",
+        de_doc="{on/off} - Auto-Farm ein- oder ausschalten",
+        es_doc="{on/off} - activar o desactivar la auto-granja",
+    )
+    async def afarm(self, message):
+        """{on/off} - turn auto farm on or off"""            
+        args = utils.get_args_raw(message).lower()
+        
+        status_result_True = self.db.get("AuroraFarm", "status", True)
+        if status_result_True:
+            status_result = self.strings("s_1")
+        else:
+            status_result = self.strings("s_0")
+        
+        if not args:
+            status = self.strings("status")
+            await utils.answer(message, f"<b>{status}: <i>{status_result}</i></b>")
+            return
+
+        if args == "on":
+            args_s = self.strings("on")
+            self.db.set("AuroraFarm", "status", True)
+            await utils.answer(message, f"<emoji document_id=5287692511945437157>✅</emoji> <b>AutoFarmUniversal: <i>{args_s}</i></b>")
+        elif args == "off":
+            args_s = self.strings("off")
+            self.db.set("AuroraFarm", "status", False)
+            await utils.answer(message, f"<emoji document_id=5287692511945437157>✅</emoji> <b>AutoFarmUniversal: <i>{args_s}</i></b>")
+        else:
+            n_args = self.strings("n_args")
+            await utils.answer(message, f"<b>{n_args}</b>")
+            return
+
+        while self.db.get("AuroraFarm", "status"):
+            bot_id = 6814754616
             text = "Куни"
-            group_id = self.config.get("group_id", None)
-
-            if group_id is None: 
-                bot_dialog = await message.client.get_entity("@kynimeister_bot")
-                async with message.client.conversation(bot_dialog) as conv:
-                    while not status:  
-                        self.db.set("farm_status", "status", True)
-                        await utils.answer(message, self.strings["enable"])
-                        while self.db.get("farm_status", "status"):
-                            await conv.send_message(text)
-                            await asyncio.sleep(14444)
-                if status:
-                    self.db.set("farm_status", "status", False)
-                    await utils.answer(message, self.strings["disable"])                            
-                return
-
-            if status:
-                self.db.set("farm_status", "status", False)
-                await utils.answer(message, self.strings["disable"])
-            else:
-                self.db.set("farm_status", "status", True)
-                await utils.answer(message, self.strings["enable"])
-                while self.db.get("farm_status", "status"):
-                    await message.client.send_message(int(group_id), text)
-                    await asyncio.sleep(14444)
-
-        except Exception as e:
-            await utils.answer(
-                message,
-                f"Something went wrong..\nError: {e}\n\nIf the error persists,"
-                " please write about the error to me in PM: https://t.me/KorenbZla"
-            )
-            logging.info("An error has occurred")
-
-
-    async def chatidcmd(self, message):
-        """Команда .chatid показывает ID чата."""
-        if message.is_private:
-            return await message.edit("<b>Это не чат!</b>")
-        args = utils.get_args_raw(message)
-        to_chat = None
-
-        try:
-            if args:
-                to_chat = int(args) if args.isdigit() else args
-            else:
-                to_chat = message.chat_id
-
-        except ValueError:
-            to_chat = message.chat_id
-
-        chat = await message.client.get_entity(to_chat)
-
-        await message.edit(
-            f"<b>Название:</b> <code>{chat.title}</code>\n"
-            f"<b>ID</b>: <code>{chat.id}</code>"
-        )
+            await message.client.send_message(bot_id, text)
+            await asyncio.sleep(14444)
