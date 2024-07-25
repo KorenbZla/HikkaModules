@@ -14,19 +14,19 @@
 # * ⛔️ You CANNOT distribute this file if you have modified it without the direct permission of the author.
 
 # Name: MyDebtors
-# Author: Dend1yya | Felix?
+# Author: dend1yya | Felix?
 # Commands:
 # .dadd | .dinfo | .ddel | .dlist | .ddelall
 # scope: hikka_only
 # meta developer: @AuroraModules
 
+# meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
+# meta banner: https://te.legra.ph/file/7d7a4c3ff3711e0e1ee88.jpg
 
 __version__ = (1, 1, 0)
 
-
-from telethon.tl.types import Message
+from telethon.tl.types import Message # type: ignore
 from .. import loader, utils
-
 
 @loader.tds
 class MyDebtorsMod(loader.Module):
