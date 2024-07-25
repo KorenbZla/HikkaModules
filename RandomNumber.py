@@ -13,22 +13,26 @@
 # * ⛔️ You CANNOT edit this file without direct permission from the author.
 # * ⛔️ You CANNOT distribute this file if you have modified it without the direct permission of the author.
 
-# Name: RandomAvatars
+# Name: RandomNumber
 # Author: Felix?
 # Commands:
 # .RandomNumber
 # scope: hikka_only
 # meta developer: @AuroraModules
 
+# meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
+# meta banner: https://te.legra.ph/file/f35de08579b3bd2235bc4.jpg
+
 __version__ = (1, 0, 1)
 
-from telethon.tl.types import Message
-from .. import loader, utils
 import random
+from telethon.tl.types import Message # type: ignore
+from .. import loader, utils
 
 @loader.tds
 class RandomNumberMod(loader.Module):
-    """Генератор рандомных чисел"""
+    """Random numbers generator"""
+
     strings = {
         "name": "RandomNumber",
         "rnumber": "<emoji document_id=5285372392086976148>🦋</emoji>  <b>The number dropped</b>",
