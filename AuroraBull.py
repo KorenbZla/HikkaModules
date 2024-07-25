@@ -20,6 +20,9 @@
 # scope: hikka_only
 # meta developer: @AuroraModules
 
+# meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
+# meta banner: https://te.legra.ph/file/7612b5506856c1eb34c56.jpg
+
 version = (1, 0, 0)
 
 import json
@@ -28,7 +31,6 @@ import asyncio
 from random import choice
 from .. import loader, utils
 from telethon.tl.types import Message # type: ignore
-
 
 @loader.tds
 class AuroraBullMod(loader.Module):
