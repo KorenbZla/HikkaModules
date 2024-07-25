@@ -20,6 +20,8 @@
 # scope: hikka_only
 # meta developer: @AuroraModules
 
+# meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
+# meta banner: https://te.legra.ph/file/388d6138470f2036d08ed.jpg
 
 __version__ = (1, 1, 0)
 
@@ -194,4 +196,3 @@ class HistoryFactMod(loader.Module):
                         await utils.answer(message, self.strings["error_decoding"])
                 else:
                     await utils.answer(message, f"{self.strings('error_uploading_data')}: {response.status}")
-
