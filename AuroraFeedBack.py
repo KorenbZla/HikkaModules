@@ -14,25 +14,23 @@
 # * ⛔️ You CANNOT distribute this file if you have modified it without the direct permission of the author.
 
 # Name: AuroraFeedBack
-# Author: Felix? | n3rcy
+# Author: Felix? || n3rcy
 # Commands:
 # .flink | .banfeedback | .unbanfeedback
 # scope: hikka_only
 # meta developer: @AuroraModules & @nercymods
 
+# meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
+# meta banner: https://te.legra.ph/file/05a519da50f993b950260.jpg
 
 __version__ = (1, 0, 2)
-
 
 from aiogram.types import Message as AiogramMessage
 from aiogram.types import CallbackQuery as AiogramCallbackQuery
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto
-
 from ..inline.types import InlineCall # type: ignore
 from html import escape
-
 from .. import loader, utils
-
 
 @loader.tds
 class AuroraFeedBackMod(loader.Module):
