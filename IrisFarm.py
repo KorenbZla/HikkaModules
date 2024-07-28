@@ -121,11 +121,11 @@ class IrisFarmMod(loader.Module):
         if args == "on":
             args_s = self.strings("on")
             self.db.set("IrisFarm", "status", True)
-            await utils.answer(message, f"<emoji document_id=5287692511945437157>✅</emoji> <b>AutoFarmUniversal: <i>{args_s}</i></b>")
+            await utils.answer(message, f"<emoji document_id=5287692511945437157>✅</emoji> <b>IrisFarm: <i>{args_s}</i></b>")
         elif args == "off":
             args_s = self.strings("off")
             self.db.set("IrisFarm", "status", False)
-            await utils.answer(message, f"<emoji document_id=5287692511945437157>✅</emoji> <b>AutoFarmUniversal: <i>{args_s}</i></b>")
+            await utils.answer(message, f"<emoji document_id=5287692511945437157>✅</emoji> <b>IrisFarm: <i>{args_s}</i></b>")
         else:
             n_args = self.strings("n_args")
             await utils.answer(message, f"<b>{n_args}</b>")
