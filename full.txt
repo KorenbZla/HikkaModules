@@ -19,3 +19,4 @@ Warpigs
 Wikipedia
 AuroraDonate
 AutoFarmUniversal
+AutoDeleteMessages
