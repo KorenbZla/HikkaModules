@@ -23,7 +23,7 @@
 # meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
 # meta banner: https://te.legra.ph/file/1d547b05f967c9681b90a.jpg
 
-__version__ = (3, 1, 0)
+__version__ = (3, 1, 1)
 
 import asyncio
 import random
@@ -150,3 +150,17 @@ class IrisFarmMod(loader.Module):
             text = "фармить"
             await message.client.send_message(chat_id, text)
             await asyncio.sleep(delay)
+
+    @loader.command(
+        ru_doc = "Заглянуть в мешок.",
+        uz_doc = "Sumkaga qarang.",
+        de_doc = "Schau in die Tasche.",
+        es_doc = "Mira en la bolsa.",
+    )
+    async def bag(self, message):
+        """Look into the bag"""
+        bot_dialog = await message.client.get_entity("@iris_black_bot")
+        async with message.client.conversation(bot_dialog) as conv:
+            await conv.send_message("Мешок")
+            response = await conv.get_response()
+            await utils.answer(message, f"<b>{(response.text)}</b>")
