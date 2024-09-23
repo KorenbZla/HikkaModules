@@ -23,12 +23,12 @@
 # meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
 # meta banner: https://te.legra.ph/file/1d547b05f967c9681b90a.jpg
 
-__version__ = (3, 0, 0)
+__version__ = (3, 1, 0)
 
 import asyncio
+import random
 from .. import loader, utils
 
-@loader.tds
 class IrisFarmMod(loader.Module):
     """Auto farm in iris bot"""
 
@@ -41,8 +41,9 @@ class IrisFarmMod(loader.Module):
         "off": "Deactivated.",
         "n_args": "<emoji document_id=5285372392086976148>🚫</emoji> Specify the arguments",
         "cfg_chat_id": "Enter the chat identifier.",
+        "cfg_random_interval": "WARNING! Disabling this feature increases the risk of being banned in the bot!",
     }
-    
+
     strings_ru = {
         "status": "<emoji document_id=6028435952299413210>ℹ️</emoji> Статус работы модуля",
         "s_1": "Активно.",
@@ -51,6 +52,7 @@ class IrisFarmMod(loader.Module):
         "off": "Деактивировано.",
         "n_args": "<emoji document_id=5285372392086976148>🚫</emoji> Укажите аргументы",
         "cfg_chat_id": "Введите идентификатор чата.",
+        "cfg_random_interval": "ВНИМАНИЕ! При выключении данной функции повышается риск бана в боте!",
     }
 
     strings_uz = {
@@ -61,6 +63,7 @@ class IrisFarmMod(loader.Module):
         "off": "O'chirildi.",
         "n_args": "<emoji document_id=5285372392086976148>🚫</emoji> Argumentlarni kiriting",
         "cfg_chat_id": "Chat identifikatorini kiriting.",
+        "cfg_random_interval": "DIQQAT! Ushbu xususiyatni o'chirib qo'yish botda ban olish xavfini oshiradi!",
     }
 
     strings_de = {
@@ -71,6 +74,7 @@ class IrisFarmMod(loader.Module):
         "off": "Deaktiviert.",
         "n_args": "<emoji document_id=5285372392086976148>🚫</emoji> Geben Sie die Argumente an",
         "cfg_chat_id": "Geben Sie die Chat-ID ein.",
+        "cfg_random_interval": "WARNUNG! Das Deaktivieren dieser Funktion erhöht das Risiko, im Bot gebannt zu werden!",
     }
 
     strings_es = {
@@ -81,8 +85,8 @@ class IrisFarmMod(loader.Module):
         "off": "Desactivado.",
         "n_args": "<emoji document_id=5285372392086976148>🚫</emoji> Especifica los argumentos",
         "cfg_chat_id": "Introduce el identificador del chat.",
+        "cfg_random_interval": "¡ADVERTENCIA! Desactivar esta función aumenta el riesgo de ser baneado en el bot.",
     }
-
 
     def __init__(self):
         self.config = loader.ModuleConfig(
@@ -91,18 +95,19 @@ class IrisFarmMod(loader.Module):
                 None,
                 lambda: self.strings["cfg_chat_id"]
             ),
+            loader.ConfigValue(
+                "random_interval",
+                False,
+                lambda: self.strings["cfg_random_interval"],
+                validator=loader.validators.Boolean()
+            )
         )
 
     async def client_ready(self, client, db):
         self.db = db
         self.client = client
 
-    @loader.command(
-        ru_doc="{on/off} - включить или выключить автоматический фарминг",
-        uz_doc="{on/off} - avtomatik fermani yoqish yoki o'chirish",
-        de_doc="{on/off} - Auto-Farm ein- oder ausschalten",
-        es_doc="{on/off} - activar o desactivar la auto-granja",
-    )
+    @loader.command()
     async def irfarm(self, message):
         """{on/off} - turn auto farm on or off"""            
         args = utils.get_args_raw(message).lower()
@@ -131,26 +136,17 @@ class IrisFarmMod(loader.Module):
             await utils.answer(message, f"<b>{n_args}</b>")
             return
 
-        if self.config["chat_id"] == None:
+        if self.config["chat_id"] is None:
             chat_id = 5443619563
         else:
             chat_id = self.config["chat_id"]
 
+        if self.config["random_interval"]:
+            delay = random.randint(4, 8) * 3630
+        else:
+            delay = 4 * 3630
+
         while self.db.get("IrisFarm", "status"):
             text = "фармить"
             await message.client.send_message(chat_id, text)
-            await asyncio.sleep(14444)
-
-    @loader.command(
-        ru_doc = "Заглянуть в мешок.",
-        uz_doc = "Sumkaga qarang.",
-        de_doc = "Schau in die Tasche.",
-        es_doc = "Mira en la bolsa.",
-    )
-    async def bag(self, message):
-        """Look into the bag"""
-        bot_dialog = await message.client.get_entity("@iris_black_bot")
-        async with message.client.conversation(bot_dialog) as conv:
-            await conv.send_message("Мешок")
-            response = await conv.get_response()
-            await utils.answer(message, f"<b>{(response.text)}</b>")
+            await asyncio.sleep(delay)
