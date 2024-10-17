@@ -21,3 +21,4 @@ AuroraDonate
 AutoFarmUniversal
 AutoDeleteMessages
 WordFinder
+RPSgame
