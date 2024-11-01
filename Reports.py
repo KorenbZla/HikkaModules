@@ -124,7 +124,6 @@ class ReportsMod(loader.Module):
     async def client_ready(self, client, db):
         self.client = client
         self.db = db
-        logger.info("AuroraReports installed!")
         try:
             result = await client(CreateChannelRequest(
                 title="Aurora-Reports",
