@@ -112,7 +112,7 @@ class IrisFarmMod(loader.Module):
         """{on/off} - turn auto farm on or off"""            
         args = utils.get_args_raw(message).lower()
         
-        status_result_True = self.db.get("IrisFarm", "status", True)
+        status_result_True = self.db.get("AuroraIrisFarm", "status", True)
         if status_result_True:
             status_result = self.strings("s_1")
         else:
@@ -125,28 +125,28 @@ class IrisFarmMod(loader.Module):
 
         if args == "on":
             args_s = self.strings("on")
-            self.db.set("IrisFarm", "status", True)
+            self.db.set("AuroraIrisFarm", "status", True)
             await utils.answer(message, f"<emoji document_id=5287692511945437157>✅</emoji> <b>IrisFarm: <i>{args_s}</i></b>")
         elif args == "off":
             args_s = self.strings("off")
-            self.db.set("IrisFarm", "status", False)
+            self.db.set("AuroraIrisFarm", "status", False)
             await utils.answer(message, f"<emoji document_id=5287692511945437157>✅</emoji> <b>IrisFarm: <i>{args_s}</i></b>")
         else:
             n_args = self.strings("n_args")
             await utils.answer(message, f"<b>{n_args}</b>")
             return
-
+        
         if self.config["chat_id"] is None:
             chat_id = 5443619563
         else:
             chat_id = self.config["chat_id"]
 
-        if self.config["random_interval"]:
-            delay = random.randint(4, 8) * 3630
+        if self.config["random_interval"] == True:
+            delay = random.randint(14410, 28800)
         else:
             delay = 4 * 3630
 
-        while self.db.get("IrisFarm", "status"):
+        while self.db.get("AuroraIrisFarm", "status"):
             text = "фармить"
             await message.client.send_message(chat_id, text)
             await asyncio.sleep(delay)
