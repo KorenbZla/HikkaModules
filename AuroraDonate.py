@@ -23,10 +23,10 @@
 # meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
 # meta banner: https://te.legra.ph/file/d3f0f14e90ce2f82d8f1f.jpg
 
-__version__ = (1, 0, 0)
+__version__ = (1, 1, 0)
 
 from hikkatl.types import Message # type: ignore
-from .. import loader
+from .. import loader, utils
 
 @loader.tds
 class AuroraDonateMod(loader.Module):
@@ -106,31 +106,28 @@ class AuroraDonateMod(loader.Module):
         
         CryptoBot = self.config["CryptoBot"]
         xRocket = self.config["xRocket"]
+        banner_url = self.config["banner_url"]
+        custom_text = self.config["custom_text"] 
         
-        if self.config["custom_text"] == None:
+        if custom_text is None:
             custom_text = "<b><i>Created by: @AuroraModules</i></b>"
         else:
-            custom_text = self.config["custom_text"]
-            
-        if self.config["banner_url"] == None:
-            await self.inline.form(
-                message=message,
-                text=str(custom_text),
-                reply_markup=[
-                    [
-                        {"text": "👛 CryptoBot", "url": CryptoBot},
-                        {"text": "🚀 xRocket", "url": xRocket},
-                    ],
-                    [
-                        {"text": "🔻 Закрыть", "callback": self.delete}  
-                    ],
-                ],
-            )
+            custom_text = custom_text
+
+        if CryptoBot is None and xRocket is None:
+            if banner_url is None:
+                await utils.answer(message, custom_text)
+            else:
+                await self.client.send_file(
+                    message.chat_id,
+                    banner_url,
+                    caption=custom_text
+                )
         else:
             await self.inline.form(
                 message=message,
                 text=str(custom_text),
-                photo=self.config["banner_url"],
+                photo=banner_url,
                 reply_markup=[
                     [
                         {"text": "👛 CryptoBot", "url": CryptoBot},
