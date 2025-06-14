@@ -23,7 +23,7 @@
 # meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
 # meta banner: https://te.legra.ph/file/d3f0f14e90ce2f82d8f1f.jpg
 
-__version__ = (1, 1, 0)
+__version__ = (1, 2, 0)
 
 from hikkatl.types import Message # type: ignore
 from .. import loader, utils
@@ -35,6 +35,7 @@ class AuroraDonateMod(loader.Module):
     strings = {
         "name": "AuroraDonate",
         "cfg_custom_text": "Enter the custom message to be sent with your donation details.",
+        "cfg_hide_text": "Enter the text that will be sent when using the '-h' argument to show hidden or private credentials.",
         "cfg_banner_url": "Enter the URL of the image to be sent with your donation details.",
         "cfg_CryptoBot": "Enter the URL to your multi-account in @CryptoBot.",
         "cfg_xRocket": "Enter the URL to your multi-account in @xRocket.",
@@ -42,6 +43,7 @@ class AuroraDonateMod(loader.Module):
 
     strings_ru = {
         "cfg_custom_text": "Введите кастомное сообщение, которое будет отправляться с вашими реквизитами для донатов.",
+        "cfg_hide_text": "Введите текст, который будет отправляться при аргументе '-h', чтобы показать скрытые или приватные реквизиты.",
         "cfg_banner_url": "Введите ссылку на изображение, которое будет отправляться с вашими реквизитами для донатов.",
         "cfg_CryptoBot": "Введите ссылку на мультисчет в @CryptoBot.",
         "cfg_xRocket": "Введите ссылку на мультисчет в @xRocket.",
@@ -49,6 +51,7 @@ class AuroraDonateMod(loader.Module):
 
     strings_uz = {
         "cfg_custom_text": "Donat qilish uchun ma'lumotlaringiz bilan yuboriladigan maxsus xabarni kiriting.",
+        "cfg_hide_text": "Yashirin yoki shaxsiy ma’lumotlarni ko‘rsatish uchun '-h' argumenti ishlatilganda yuboriladigan matnni kiriting.",
         "cfg_banner_url": "Donat qilish uchun ma'lumotlaringiz bilan yuboriladigan rasm havolasini kiriting.",
         "cfg_CryptoBot": "@CryptoBot dagi multischet havolasini kiriting.",
         "cfg_xRocket": "@xRocket dagi multischet havolasini kiriting.",
@@ -56,6 +59,7 @@ class AuroraDonateMod(loader.Module):
 
     strings_de = {
         "cfg_custom_text": "Geben Sie eine benutzerdefinierte Nachricht ein, die mit Ihren Spendeninformationen gesendet wird.",
+        "cfg_hide_text": "Geben Sie den Text ein, der beim Argument '-h' gesendet wird, um versteckte oder private Zugangsdaten anzuzeigen.",
         "cfg_banner_url": "Geben Sie den Link zu einem Bild ein, das mit Ihren Spendeninformationen gesendet wird.",
         "cfg_CryptoBot": "Geben Sie den Link zu Ihrem Multikonto bei @CryptoBot ein.",
         "cfg_xRocket": "Geben Sie den Link zu Ihrem Multikonto bei @xRocket ein.",
@@ -63,6 +67,7 @@ class AuroraDonateMod(loader.Module):
 
     strings_es = {
         "cfg_custom_text": "Ingrese un mensaje personalizado que se enviará con sus detalles de donación.",
+        "cfg_hide_text": "Introduce el texto que se enviará al usar el argumento '-h' para mostrar credenciales ocultas o privadas.",
         "cfg_banner_url": "Ingrese el enlace de la imagen que se enviará con sus detalles de donación.",
         "cfg_CryptoBot": "Ingrese el enlace a su cuenta múltiple en @CryptoBot.",
         "cfg_xRocket": "Ingrese el enlace a su cuenta múltiple en @xRocket.",
@@ -74,6 +79,11 @@ class AuroraDonateMod(loader.Module):
                 "custom_text",
                 None,
                 lambda: self.strings["cfg_custom_text"],
+            ),
+            loader.ConfigValue(
+                "hide_text",
+                None,
+                lambda: self.strings["cfg_hide_text"],
             ),
             loader.ConfigValue(
                 "banner_url",
@@ -96,24 +106,33 @@ class AuroraDonateMod(loader.Module):
         )
 
     @loader.command(
-        ru_doc="- Открыть реквизиты для донатов",
-        uz_doc="- Donatlar uchun ma'lumotlarni ochish",
-        de_doc="- Details für Spenden öffnen",
-        es_doc="- Abrir detalles para donaciones",
+        ru_doc="{-h} - Открыть реквизиты для донатов",
+        uz_doc="{-h} - Donatlar uchun ma'lumotlarni ochish",
+        de_doc="{-h} - Details für Spenden öffnen",
+        es_doc="{-h} - Abrir detalles para donaciones",
     )
     async def dme(self, message):
-        """- Open details for donations"""
+        """{-h} - Open details for donations"""
+        
+        args = utils.get_args_raw(message).split()
         
         CryptoBot = self.config["CryptoBot"]
         xRocket = self.config["xRocket"]
         banner_url = self.config["banner_url"]
         custom_text = self.config["custom_text"] 
-        
+        hide_text = self.config["hide_text"]
+                    
         if custom_text is None:
             custom_text = "<b><i>Created by: @AuroraModules</i></b>"
         else:
             custom_text = custom_text
 
+        if args[0] == "-h":
+            if hide_text is None:
+                custom_text = custom_text
+            else:
+                custom_text = hide_text
+                
         if CryptoBot is None and xRocket is None:
             if banner_url is None:
                 await utils.answer(message, custom_text)
