@@ -23,7 +23,7 @@
 # meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
 # meta banner: https://te.legra.ph/file/d3f0f14e90ce2f82d8f1f.jpg
 
-__version__ = (1, 2, 0)
+__version__ = (1, 2, 1)
 
 from hikkatl.types import Message # type: ignore
 from .. import loader, utils
@@ -77,7 +77,7 @@ class AuroraDonateMod(loader.Module):
         self.config = loader.ModuleConfig(
             loader.ConfigValue(
                 "custom_text",
-                None,
+                "<b><i>Created by: @AuroraModules</i></b>",
                 lambda: self.strings["cfg_custom_text"],
             ),
             loader.ConfigValue(
@@ -121,18 +121,15 @@ class AuroraDonateMod(loader.Module):
         banner_url = self.config["banner_url"]
         custom_text = self.config["custom_text"] 
         hide_text = self.config["hide_text"]
-                    
-        if custom_text is None:
-            custom_text = "<b><i>Created by: @AuroraModules</i></b>"
-        else:
-            custom_text = custom_text
 
-        if args[0] == "-h":
-            if hide_text is None:
+        if len(args) > 0 and args[0] == '-h':
+            if hide_text == None:
                 custom_text = custom_text
             else:
                 custom_text = hide_text
-                
+        else:
+            custom_text = custom_text
+    
         if CryptoBot is None and xRocket is None:
             if banner_url is None:
                 await utils.answer(message, custom_text)
@@ -142,6 +139,7 @@ class AuroraDonateMod(loader.Module):
                     banner_url,
                     caption=custom_text
                 )
+                await message.delete()
         else:
             await self.inline.form(
                 message=message,
