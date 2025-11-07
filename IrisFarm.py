@@ -23,7 +23,7 @@
 # meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
 # meta banner: https://te.legra.ph/file/1d547b05f967c9681b90a.jpg
 
-__version__ = (3, 1, 1)
+__version__ = (3, 2, 0)
 
 import asyncio
 import random
@@ -97,7 +97,7 @@ class IrisFarmMod(loader.Module):
             ),
             loader.ConfigValue(
                 "random_interval",
-                False,
+                True,
                 lambda: self.strings["cfg_random_interval"],
                 validator=loader.validators.Boolean()
             )
@@ -112,8 +112,8 @@ class IrisFarmMod(loader.Module):
         """{on/off} - turn auto farm on or off"""            
         args = utils.get_args_raw(message).lower()
         
-        status_result_True = self.db.get("AuroraIrisFarm", "status", True)
-        if status_result_True:
+        status_result = self.db.get("AuroraIrisFarm", "status")
+        if status_result is True:
             status_result = self.strings("s_1")
         else:
             status_result = self.strings("s_0")
