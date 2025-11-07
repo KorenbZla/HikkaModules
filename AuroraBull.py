@@ -23,7 +23,7 @@
 # meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
 # meta banner: https://te.legra.ph/file/7612b5506856c1eb34c56.jpg
 
-version = (1, 0, 0)
+__version__ = (1, 1, 0)
 
 import json
 import aiohttp
@@ -42,7 +42,7 @@ class AuroraBullMod(loader.Module):
         "error_decoding": "<b><i>Error: The JSON could not be decoded.</i></b>",
         "error_uploading_data": "<b><i>Error loading data</i></b>",
         "error_valid_args": "<b><i>Please enter valid arguments!</i></b>",
-        "launched": "<b><i>AuroraBull launched!</i></b>\n\n<b><i>Use <code>.abulloff</code> to stop the attack.</i></b>",
+        "launched": "<b><i>AuroraBull launched!</i></b>\n\n<b><i>Use <code>{prefix}abulloff</code> to stop the attack.</i></b>",
         "stopped": "<b><i>AuroraBull has stopped.</i></b>",
     }
 
@@ -51,7 +51,7 @@ class AuroraBullMod(loader.Module):
         "error_decoding": "<b><i>Error: не удалось декодировать JSON.</i></b>",
         "error_uploading_data": "<b><i>Ошибка при загрузке данных</i></b>",
         "error_valid_args": "<b><i>Введите корректные аргументы!</i></b>",
-        "launched": "<b><i>AuroraBull запущен!</i></b>\n\n<b><i>Используйте <code>.abulloff</code>, чтобы остановить атаку.</i></b>",
+        "launched": "<b><i>AuroraBull запущен!</i></b>\n\n<b><i>Используйте <code>{prefix}abulloff</code>, чтобы остановить атаку.</i></b>",
         "stopped": "<b><i>AuroraBull остановлен.</i></b>",
     }
 
@@ -60,7 +60,7 @@ class AuroraBullMod(loader.Module):
         "error_decoding": "<b><i>Error: JSON декодлаш муваффақиятли амалга ошмади.</i></b>",
         "error_uploading_data": "<b><i>Маълумотлар юклаб олинмади</i></b>",
         "error_valid_args": "<b><i>Iltimos, to'g'ri dalillarni kiriting!</i></b>",
-        "launched": "<b><i>AuroraBull ishga tushirildi!</i></b>\n\n<b><i>Hujumni toʻxtatish uchun <code>.abulloff</code> dan foydalaning.</i></b>",
+        "launched": "<b><i>AuroraBull ishga tushirildi!</i></b>\n\n<b><i>Hujumni toʻxtatish uchun <code>{prefix}abulloff</code> dan foydalaning.</i></b>",
         "stopped": "<b><i>AuroraBull to'xtadi.</i></b>",
     }
 
@@ -69,7 +69,7 @@ class AuroraBullMod(loader.Module):
         "error_decoding": "<b><i>Error: JSON konnte nicht decodiert werden.</i></b>",
         "error_uploading_data": "<b><i>Fehler beim Hochladen der Daten</i></b>",
         "error_valid_args": "<b><i>Bitte geben Sie gültige Argumente ein!</i></b>",
-        "launched": "<b><i>AuroraBull gestartet!</i></b>\n\n<b><i>Verwenden Sie <code>.abulloff</code>, um den Angriff zu stoppen.</i></b>",
+        "launched": "<b><i>AuroraBull gestartet!</i></b>\n\n<b><i>Verwenden Sie <code>{prefix}abulloff</code>, um den Angriff zu stoppen.</i></b>",
         "stopped": "<b><i>AuroraBull hat angehalten.</i></b>",
     }
 
@@ -78,7 +78,7 @@ class AuroraBullMod(loader.Module):
         "error_decoding": "<b><i>Error: No se pudo decodificar JSON.</i></b>",
         "error_uploading_data": "<b><i>Error al cargar los datos</i></b>",
         "error_valid_args": "<b><i>¡Por favor ingrese argumentos válidos!</i></b>",
-        "launched": "<b><i>¡AuroraBull lanzado!</i></b>\n\n<b><i>Utiliza <code>.abulloff</code> para detener el ataque.</i></b>",
+        "launched": "<b><i>¡AuroraBull lanzado!</i></b>\n\n<b><i>Utiliza <code>{prefix}abulloff</code> para detener el ataque.</i></b>",
         "stopped": "<b><i>AuroraBull se ha detenido.</i></b>",
         
     }
@@ -133,7 +133,7 @@ class AuroraBullMod(loader.Module):
             await utils.answer(message, self.strings("error_valid_args"))
             return
 
-        await utils.answer(message, self.strings("launched"))
+        await utils.answer(message, self.strings("launched").format(prefix=self.get_prefix()))
         
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
@@ -146,10 +146,11 @@ class AuroraBullMod(loader.Module):
                             bull_text = choice(data["BullText"])
                             await message.respond(text + bull_text)
                             await asyncio.sleep(time)
-                        else:
-                            await utils.answer(message, self.strings("error_key"))
+                        return
                     else:
-                        await utils.answer(message, f"{self.strings('error_uploading_data')}: {response.status}")
+                        return await utils.answer(message, self.strings("error_key"))
+                else:
+                    return await utils.answer(message, f"{self.strings('error_uploading_data')}: {response.status}")
 
     @loader.command(
         ru_doc="Остановить оскорбления",
