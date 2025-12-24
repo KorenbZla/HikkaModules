@@ -23,7 +23,7 @@
 # meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
 # meta banner: https://te.legra.ph/file/55fa6eebae860a359ac27.jpg
 
-__version__ = (1, 3, 0)
+__version__ = (1, 3, 1)
 
 from .. import loader, utils # type: ignore
 from telethon.tl.types import Message, InputDocument # type: ignore
@@ -136,7 +136,11 @@ class SendMod(loader.Module):
                 media = reply.media
         else:
             media = message.media
-        
+
+        if not message_text and not media:
+            await utils.answer(message, self.strings["error_send_2"])
+            return
+
         await message.delete()
         await message.reply(
             message_text,
