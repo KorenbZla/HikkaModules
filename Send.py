@@ -23,7 +23,7 @@
 # meta pic: https://i.postimg.cc/Hx3Zm8rB/logo.png
 # meta banner: https://te.legra.ph/file/55fa6eebae860a359ac27.jpg
 
-__version__ = (1, 3, 2)
+__version__ = (1, 3, 3)
 
 from .. import loader, utils # type: ignore
 from telethon.tl import types # type: ignore
