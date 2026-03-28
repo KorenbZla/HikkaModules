@@ -34,40 +34,8 @@ from telethon.tl.types import InputMediaUploadedDocument, DocumentAttributeFilen
 class InvalidFilesMod(loader.Module):
     """Module for creating corrupted (broken) files of any format."""
 
-    strings_ru = {
-        "name": "InvalidFiles",
-        "invalid_format": "<emoji document_id=5456307331644037599>❌</emoji> <b>Неверный формат размера.</b>",
-        "max_size": "<emoji document_id=5456307331644037599>❌</emoji> <b>Максимальный размер файла — 2GB</b>",
-        "file_created": (
-            "<emoji document_id=5458805056990119991>✅</emoji><b> Файл успешно создан и отправлен.</b>\n\n"
-            "<blockquote>"
-            "<emoji document_id=5456625794879099391>👤</emoji> <b>Имя файла:</b> <code>{}</code>\n"
-            "<emoji document_id=5456569114195692172>⚖️</emoji> <b>Размер:</b> <code>{}{}</code>\n"
-            "<emoji document_id=5456591761558245861>⌛️</emoji> <b>Создание:</b> <code>{:.2f} сек.</code>\n"
-            "<tg-emoji emoji-id=5456350521835163323>📤</tg-emoji> <b>Отправка:</b> <code>{:.2f} сек.</code>"
-            "</blockquote>"
-        ),
-        "invalid_args": (
-            "<emoji document_id=5456307331644037599>❌</emoji><b> Неверные аргументы</b>\n\n"
-            "<b>Использование:</b> <code>{prefix}cifile &lt;имя&gt; &lt;размер&gt;</code>\n"
-            "<b>Пример:</b> <code>{prefix}cifile test.txt 3.4mb</code>\n\n"
-            "<i>Поддерживаются: b, kb, mb, gb</i>"
-        ),
-        "creating": "<emoji document_id=5456591761558245861>⌛️</emoji> <b>Создаю файл...\n\n<i>*Файлы большого размера могут долго загружаться.</i></b>",
-        "error": "<emoji document_id=5456537889783452967>⚠️</emoji> <b>Ошибка:</b>\n<i>{}</i>",
-        "formats": (
-            "<emoji document_id=5456367813373498016>📂</emoji> <b>Популярные расширения файлов:</b>\n\n"
-            "<b>📄 Документы:</b> <code>.txt .docx .pdf .rtf</code>\n"
-            "<b>📊 Таблицы:</b> <code>.xlsx .csv</code>\n"
-            "<b>📈 Презентации:</b> <code>.pptx</code>\n"
-            "<b>🖼️ Изображения:</b> <code>.jpg .png .gif .bmp .webp</code>\n"
-            "<b>🎵 Аудио:</b> <code>.mp3 .wav .flac</code>\n"
-            "<b>🎬 Видео:</b> <code>.mp4 .mkv .avi</code>\n"
-            "<b>📦 Архивы:</b> <code>.zip .rar .7z</code>\n"
-            "<b>💻 Код:</b> <code>.py .js .html .css .json</code>"
-        ),
-    }
-    strings_en = {
+
+    strings = {
         "name": "InvalidFiles",
         "invalid_format": "<emoji document_id=5456307331644037599>❌</emoji> <b>Invalid size format.</b>",
         "max_size": "<emoji document_id=5456307331644037599>❌</emoji> <b>Maximum file size is 2GB</b>",
@@ -101,9 +69,40 @@ class InvalidFilesMod(loader.Module):
         ),
     }
 
+    strings_ru = {
+        "invalid_format": "<emoji document_id=5456307331644037599>❌</emoji> <b>Неверный формат размера.</b>",
+        "max_size": "<emoji document_id=5456307331644037599>❌</emoji> <b>Максимальный размер файла — 2GB</b>",
+        "file_created": (
+            "<emoji document_id=5458805056990119991>✅</emoji><b> Файл успешно создан и отправлен.</b>\n\n"
+            "<blockquote>"
+            "<emoji document_id=5456625794879099391>👤</emoji> <b>Имя файла:</b> <code>{}</code>\n"
+            "<emoji document_id=5456569114195692172>⚖️</emoji> <b>Размер:</b> <code>{}{}</code>\n"
+            "<emoji document_id=5456591761558245861>⌛️</emoji> <b>Создание:</b> <code>{:.2f} сек.</code>\n"
+            "<tg-emoji emoji-id=5456350521835163323>📤</tg-emoji> <b>Отправка:</b> <code>{:.2f} сек.</code>"
+            "</blockquote>"
+        ),
+        "invalid_args": (
+            "<emoji document_id=5456307331644037599>❌</emoji><b> Неверные аргументы</b>\n\n"
+            "<b>Использование:</b> <code>{prefix}cifile &lt;имя&gt; &lt;размер&gt;</code>\n"
+            "<b>Пример:</b> <code>{prefix}cifile test.txt 3.4mb</code>\n\n"
+            "<i>Поддерживаются: b, kb, mb, gb</i>"
+        ),
+        "creating": "<emoji document_id=5456591761558245861>⌛️</emoji> <b>Создаю файл...\n\n<i>*Файлы большого размера могут долго загружаться.</i></b>",
+        "error": "<emoji document_id=5456537889783452967>⚠️</emoji> <b>Ошибка:</b>\n<i>{}</i>",
+        "formats": (
+            "<emoji document_id=5456367813373498016>📂</emoji> <b>Популярные расширения файлов:</b>\n\n"
+            "<b>📄 Документы:</b> <code>.txt .docx .pdf .rtf</code>\n"
+            "<b>📊 Таблицы:</b> <code>.xlsx .csv</code>\n"
+            "<b>📈 Презентации:</b> <code>.pptx</code>\n"
+            "<b>🖼️ Изображения:</b> <code>.jpg .png .gif .bmp .webp</code>\n"
+            "<b>🎵 Аудио:</b> <code>.mp3 .wav .flac</code>\n"
+            "<b>🎬 Видео:</b> <code>.mp4 .mkv .avi</code>\n"
+            "<b>📦 Архивы:</b> <code>.zip .rar .7z</code>\n"
+            "<b>💻 Код:</b> <code>.py .js .html .css .json</code>"
+        ),
+    }
 
     strings_uz = {
-        "name": "InvalidFiles",
         "invalid_format": "<emoji document_id=5456307331644037599>❌</emoji> <b>Hajm formati noto‘g‘ri.</b>",
         "max_size": "<emoji document_id=5456307331644037599>❌</emoji> <b>Maksimal fayl hajmi — 2GB</b>",
         "file_created": (
@@ -138,7 +137,6 @@ class InvalidFilesMod(loader.Module):
 
 
     strings_de = {
-        "name": "InvalidFiles",
         "invalid_format": "<emoji document_id=5456307331644037599>❌</emoji> <b>Ungültiges Größenformat.</b>",
         "max_size": "<emoji document_id=5456307331644037599>❌</emoji> <b>Maximale Dateigröße — 2GB</b>",
         "file_created": (
@@ -173,7 +171,6 @@ class InvalidFilesMod(loader.Module):
 
 
     strings_es = {
-        "name": "InvalidFiles",
         "invalid_format": "<emoji document_id=5456307331644037599>❌</emoji> <b>Formato de tamaño inválido.</b>",
         "max_size": "<emoji document_id=5456307331644037599>❌</emoji> <b>El tamaño máximo del archivo es 2GB</b>",
         "file_created": (
